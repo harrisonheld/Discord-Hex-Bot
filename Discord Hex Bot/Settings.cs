@@ -13,6 +13,7 @@ namespace Discord_Hex_Bot
         public const char PLAYER_TEXTURE = 'o';
         public const char ENEMY_TEXTURE = 'o';
         public const char ARROW_TEXTURE = 'o';
+        public const char ROCK_TEXTURE = 'o';
 
     }
 }

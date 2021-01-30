@@ -8,14 +8,15 @@ namespace Discord_Hex_Bot.game.entity
     public class Entity
     {
 
-        public static Entity EMPTY = new Entity(new Position(-1, -1), RenderLayer.Background, Board.INVALID);
+        public static Entity EMPTY = new Entity();
 
         public Position pos;
         // if this is true, the renderer should refresh this entity
         public bool dirty;
         public RenderLayer layer;
         public Board board;
-        // whether or not other entities can overwrite this one
+        // lol texture
+        public char texture;
 
         public Entity()
         {
@@ -23,6 +24,7 @@ namespace Discord_Hex_Bot.game.entity
             this.dirty = false;
             this.board = Board.INVALID;
             this.layer = RenderLayer.Background;
+            this.texture = Settings.GROUND_TEXTURE;
         }
         private Entity(Position _position, RenderLayer _renderLayer, Board _board)
         {
@@ -32,12 +34,12 @@ namespace Discord_Hex_Bot.game.entity
             this.board = _board;
         }
 
-        public virtual bool immovable()
+        public virtual bool Immovable()
         {
             return false;
         }
 
-        public virtual bool move(Direction direction)
+        public virtual bool Move(Direction direction)
         {
             switch (direction)
             {
@@ -55,6 +57,11 @@ namespace Discord_Hex_Bot.game.entity
                     break;
             }
             return true;
+        }
+
+        public virtual void Step()
+        {
+
         }
 
     }
