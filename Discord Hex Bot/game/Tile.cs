@@ -10,6 +10,7 @@ namespace Discord_Hex_Bot.game
     {
         public Position position;
         public SortedDictionary<RenderLayer, Entity> layers;
+        public char texture;
 
         internal Entity getEntity(RenderLayer layer)
         {

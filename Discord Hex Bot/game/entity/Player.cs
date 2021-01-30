@@ -43,5 +43,10 @@ namespace Discord_Hex_Bot.game.entity
                 }
             }
         }
+
+        public void Shoot()
+        {
+
+        }
     }
 }
