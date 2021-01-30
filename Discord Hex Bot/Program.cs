@@ -85,16 +85,22 @@ namespace Discord_Hex_Bot
                 EmbedBuilder eb = new EmbedBuilder()
                 {
                     Title = "You have joined a lobby!",
+                    Description = "Here's some stats:",
                     Fields = new List<EmbedFieldBuilder>()
                     {
                         new EmbedFieldBuilder()
                         {
-                            Name = "Field 1 (inline)",
-                            Value = $"{lobby.Players.Count} / {Settings.MAX_PLAYERS}"
+                            Name = "Players in lobby:",
+                            Value = $"[{lobby.Players.Count} / {Settings.MAX_PLAYERS}]"
+                        },
+                        new EmbedFieldBuilder()
+                        {
+                            Name = "Status:",
+                            Value = lobby.Status
                         }
                     },
 
-                    Color = new Color(255, 255, 255)
+                    Color = Color.Blue
                 };
 
                 message.Channel.SendMessageAsync("", false, eb.Build());
