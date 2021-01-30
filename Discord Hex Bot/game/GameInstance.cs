@@ -42,13 +42,13 @@ namespace Discord_Hex_Bot.game
             }
         }
 
-        public void spawn(entity.Entity entity)
+        public void Spawn(entity.Entity entity)
         {
             this.entities.Add(entity);
-            this.redraw();
+            this.Redraw();
         }
 
-        private void redraw()
+        private void Redraw()
         {
             throw new NotImplementedException();
         }

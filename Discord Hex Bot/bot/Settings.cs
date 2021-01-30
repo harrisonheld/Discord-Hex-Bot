@@ -15,7 +15,10 @@
         public static char[] ARROW_GLYPHS = new char[2] { '/', '-' };
         public static char[] ROCK_GLYPHS = new char[1] { 'o' };
 
-        // harrison and isaiahs account ids, in that order
-        public static ulong[] CREATOR_IDS = new ulong[2] { 741448086701867060, 328227485013639168 };
+        // isaiah and harrisons account ids, in that order
+        public static ulong[] CREATOR_IDS = new ulong[2] { 328227485013639168, 741448086701867060 };
+
+        public static int MAP_WIDTH = 16;
+        public static int MAP_HEIGHT = MAP_WIDTH / 16 * 7;
     }
 }
