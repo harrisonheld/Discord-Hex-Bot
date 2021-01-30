@@ -11,7 +11,10 @@ namespace Discord_Hex_Bot.game
 
         public GameInstance(List<entity.Player> entities)
         {
-            this.entities = (List<entity.Entity>)(Object) entities;
+            foreach (entity.Player player in entities)
+            {
+                this.entities.Add(player);
+            }
         }
         public GameInstance(List<entity.Entity> entities, int seed)
         {

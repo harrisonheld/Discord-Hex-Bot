@@ -66,7 +66,10 @@ namespace Discord_Hex_Bot.game.entity
 
         public void Remove()
         {
+            if(this.board.room.entities.Contains(this))
+            {
 
+            }
         }
 
     }
