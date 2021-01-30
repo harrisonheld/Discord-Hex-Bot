@@ -70,6 +70,7 @@ namespace Discord_Hex_Bot
             command = message.Content[prefixLength..lengthOfCommand].ToLower();
 
             ulong authorId = message.Author.Id;
+            ulong channelId = message.Channel.Id;
 
             //Commands begin here
             if (command.Equals("joinlobby"))
@@ -80,11 +81,17 @@ namespace Discord_Hex_Bot
                     return Task.CompletedTask;
                 }
 
-                Lobby lobby = LobbyManager.AssignPlayerToLobbyById(authorId);
+                Lobby lobby = LobbyManager.AssignPlayerToLobby(authorId, channelId);
+
+                string title = "";
+                if (lobby.Players.Count == Settings.MAX_PLAYERS)
+                    title = "The game can start now!";
+                else
+                    title = "You have joined a lobby!";
 
                 EmbedBuilder eb = new EmbedBuilder()
                 {
-                    Title = "You have joined a lobby!",
+                    Title = title,
                     Description = "Here's some stats:",
                     Fields = new List<EmbedFieldBuilder>()
                     {
@@ -98,12 +105,6 @@ namespace Discord_Hex_Bot
                         {
                             Name = "Status:",
                             Value = lobby.Status,
-                            IsInline = true
-                        },
-                        new EmbedFieldBuilder()
-                        {
-                            Name = "Chungus:",
-                            Value = "poop",
                             IsInline = true
                         }
                     },

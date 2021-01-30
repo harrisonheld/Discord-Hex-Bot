@@ -17,20 +17,20 @@ namespace Discord_Hex_Bot
 
             return null;
         }
-        public static Lobby AssignPlayerToLobbyById(ulong id)
+        public static Lobby AssignPlayerToLobby(ulong id, ulong channelId)
         {
             foreach(Lobby lobby in lobbies)
             {
                 if(lobby.Status == LobbyStatus.Waiting)
                 {
-                    lobby.AddPlayerById(id);
+                    lobby.AddPlayer(id, channelId);
                     return lobby;
                 }
             }
 
             // if no lobbies were waiting for another player
             Lobby newLobby = CreateNewLobby();
-            newLobby.AddPlayerById(id);
+            newLobby.AddPlayer(id, channelId);
             Debug.WriteLine("Created a new lobby.");
 
             return newLobby;
