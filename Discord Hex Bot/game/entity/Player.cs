@@ -50,9 +50,9 @@ namespace Discord_Hex_Bot.game.entity
             }
         }
 
-        public void Shoot()
+        public void Shoot(math.Direction direction)
         {
-            Bullet bullet = new Bullet();
+            Bullet bullet = new Bullet(this, direction);
         }
     }
 }
