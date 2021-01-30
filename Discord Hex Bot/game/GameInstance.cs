@@ -33,6 +33,17 @@ namespace Discord_Hex_Bot.game
             }
         }
 
+        public void spawn(entity.Entity entity)
+        {
+            this.entities.Add(entity);
+            this.redraw();
+        }
+
+        private void redraw()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Step()
         {
             foreach (entity.Entity entity in entities)
