@@ -28,7 +28,7 @@ namespace Discord_Hex_Bot.game.entity
             for (int i = 1; i < lines.Length; i++)
             {
                 string line = lines[i];
-                string[] fields = line.Split(Settings.CSV_DELIMTIER);
+                string[] fields = line.Split(Settings.CSV_DELIMITER);
 
                 ulong lineUserId = ulong.Parse(fields[0]);
 
