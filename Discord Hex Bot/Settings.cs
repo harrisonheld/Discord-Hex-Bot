@@ -8,5 +8,11 @@ namespace Discord_Hex_Bot
     {
         public const string PLAYERS_PATH = @"./players.csv";
         public const string CSV_DELIMITER = ",";
+
+        public const char GROUND_TEXTURE = 'o';
+        public const char PLAYER_TEXTURE = 'o';
+        public const char ENEMY_TEXTURE = 'o';
+        public const char ARROW_TEXTURE = 'o';
+
     }
 }
