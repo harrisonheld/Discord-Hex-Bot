@@ -2,9 +2,13 @@
 {
     public class Bullet : MobileEntity
     {
+        public Entity owner;
+
         public Bullet(Entity source, math.Direction direction)
         {
             this.layer = render.RenderLayer.Main;
+            this.pos = source.pos.offset(direction);
+            this.owner = source;
             if(!source.board.isClear(source.pos.offset(direction), this.layer))
             {
                 this.Remove();
