@@ -63,7 +63,7 @@ namespace Discord_Hex_Bot
         {
             foreach (Player p in players)
             {
-                if (p.playerId == id)
+                if (p.Id == id)
                     return p;
             }
 
@@ -73,7 +73,7 @@ namespace Discord_Hex_Bot
         {
             foreach (Player p in players)
             {
-                if (p.playerId == id)
+                if (p.Id == id)
                     return true;
             }
 
@@ -85,7 +85,7 @@ namespace Discord_Hex_Bot
 
             foreach (Player p in players)
             {
-                if (p.playerId == id)
+                if (p.Id == id)
                     return idx;
 
                 idx++;

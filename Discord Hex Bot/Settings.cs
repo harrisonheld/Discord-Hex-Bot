@@ -7,6 +7,6 @@ namespace Discord_Hex_Bot
     static class Settings
     {
         public const string PLAYERS_PATH = @"./players.csv";
-        public const string DELIMTIER = ",";
+        public const string CSV_DELIMITER = ",";
     }
 }
