@@ -1,5 +1,3 @@
-using System;
-using System.Drawing;
 using Discord_Hex_Bot.game.math;
 using Discord_Hex_Bot.game.render;
 

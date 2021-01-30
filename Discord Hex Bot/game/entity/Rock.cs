@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Discord_Hex_Bot.game.entity
+﻿namespace Discord_Hex_Bot.game.entity
 {
     class Rock : Entity
     {

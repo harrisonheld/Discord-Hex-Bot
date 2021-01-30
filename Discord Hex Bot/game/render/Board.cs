@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Discord_Hex_Bot.game.entity;
 using Discord_Hex_Bot.game.math;

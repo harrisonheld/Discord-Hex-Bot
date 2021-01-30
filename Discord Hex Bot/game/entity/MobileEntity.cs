@@ -1,7 +1,4 @@
 ﻿using Discord_Hex_Bot.game.math;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Discord_Hex_Bot.game.entity
 {

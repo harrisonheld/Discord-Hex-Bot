@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using Discord_Hex_Bot.game;
 using Discord_Hex_Bot.game.entity;

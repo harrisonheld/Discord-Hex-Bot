@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Discord_Hex_Bot.game.render;
+﻿using Discord_Hex_Bot.game.render;
 using System.IO;
 
 namespace Discord_Hex_Bot.game.entity

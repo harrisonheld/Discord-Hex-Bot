@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Discord_Hex_Bot
+﻿namespace Discord_Hex_Bot
 {
     static class Settings
     {
