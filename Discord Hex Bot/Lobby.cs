@@ -8,7 +8,6 @@ namespace Discord_Hex_Bot
 {
     class Lobby
     {
-        private const int MAX_PLAYERS = 2; // how many players are needed to play
         private List<Player> players = new List<Player>();
         public List<Player> Players 
         {
@@ -43,7 +42,7 @@ namespace Discord_Hex_Bot
             Player p = new Player(id);
             players.Add(p);
 
-            if (players.Count >= MAX_PLAYERS)
+            if (players.Count >= Settings.MAX_PLAYERS)
                 StartGame();
         }
         public bool RemovePlayerById(ulong id)
@@ -53,7 +52,7 @@ namespace Discord_Hex_Bot
             {
                 players.RemoveAt(idx);
 
-                if (players.Count < MAX_PLAYERS)
+                if (players.Count < Settings.MAX_PLAYERS)
                     SuspendGame();
 
                 return true;
@@ -109,7 +108,7 @@ namespace Discord_Hex_Bot
         public string LobbyInfo()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append($"Players: {players.Count} / {MAX_PLAYERS}\n");
+            sb.Append($"Players: {players.Count} / {Settings.MAX_PLAYERS}\n");
             sb.Append($"Status: {status}\n");
             return sb.ToString();
         }
