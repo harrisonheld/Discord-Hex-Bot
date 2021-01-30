@@ -10,10 +10,9 @@ namespace Discord_Hex_Bot
         public const string CSV_DELIMITER = ",";
         public const int MAX_PLAYERS = 2; // how many players are needed to play
 
-        public const char GROUND_TEXTURE = 'o';
-        public const char PLAYER_TEXTURE = 'o';
-        public const char ENEMY_TEXTURE = 'o';
-        public const char ARROW_TEXTURE = 'o';
-
+        public static char[] GROUND_GLYPHS = new char[3] {',', '`', '-'};
+        public static char[] PLAYER_GLYPHS = new char[4] { 'a', 'b', 'c', 'd' };
+        public static char[] ENEMY_GLYPHS = new char[1] { 'E' };
+        public static char[] ARROW_GLYPHS = new char[2] { '/', '-' };
     }
 }
