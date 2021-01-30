@@ -90,13 +90,21 @@ namespace Discord_Hex_Bot
                     {
                         new EmbedFieldBuilder()
                         {
-                            Name = "Players in lobby:",
-                            Value = $"[{lobby.Players.Count} / {Settings.MAX_PLAYERS}]"
+                            Name = "Players: ",
+                            Value = $"[{lobby.Players.Count} / {Settings.MAX_PLAYERS}]",
+                            IsInline = true
                         },
                         new EmbedFieldBuilder()
                         {
                             Name = "Status:",
-                            Value = lobby.Status
+                            Value = lobby.Status,
+                            IsInline = true
+                        },
+                        new EmbedFieldBuilder()
+                        {
+                            Name = "Chungus:",
+                            Value = "poop",
+                            IsInline = true
                         }
                     },
 
