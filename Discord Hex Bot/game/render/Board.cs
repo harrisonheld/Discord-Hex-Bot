@@ -9,7 +9,7 @@ namespace Discord_Hex_Bot.game.render
     {
         public static Board INVALID = new Board();
 
-        public readonly Room room;
+        public readonly GameInstance room;
 
         public string texture;
 
