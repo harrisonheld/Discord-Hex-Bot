@@ -26,13 +26,13 @@ namespace Discord_Hex_Bot.game.math
 
         // operators
         // Inverse/Negation
-        public static OrderedPair operator -(OrderedPair a)
-            => new OrderedPair(-a.x, -a.y);
+        public static Position operator -(Position a)
+            => new Position(-a.X, -a.Y);
         // Addition
-        public static OrderedPair operator +(OrderedPair a, OrderedPair b)
-            => new OrderedPair(a.x + b.x, a.y - b.y);
+        public static Position operator +(Position a, Position b)
+            => new Position(a.X + b.X, a.Y - b.Y);
         // Subtraction
-        public static OrderedPair operator -(OrderedPair a, OrderedPair b)
+        public static Position operator -(Position a, Position b)
             => a + -b;
         #endregion
 
