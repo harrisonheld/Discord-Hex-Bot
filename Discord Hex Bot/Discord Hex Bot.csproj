@@ -19,4 +19,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="game\io\" />
+  </ItemGroup>
+
 </Project>

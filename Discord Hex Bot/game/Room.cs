@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Discord_Hex_Bot;
 
-namespace Hex_Game
+namespace Discord_Hex_Bot.game
 {
     public class Room
     {
@@ -18,7 +18,7 @@ namespace Hex_Game
 
         public void HandleInput(string[] args, Account sender)
         {
-            
+
         }
     }
 }
