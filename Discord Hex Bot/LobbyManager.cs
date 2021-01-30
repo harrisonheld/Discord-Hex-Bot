@@ -13,7 +13,7 @@ namespace Discord_Hex_Bot
         {
             foreach (Lobby lobby in lobbies)
             {
-                if (lobby.ContainsAccountWithId(id))
+                if (lobby.ContainsPlayerWithId(id))
                     return lobby;
             }
 
@@ -25,14 +25,14 @@ namespace Discord_Hex_Bot
             {
                 if(lobby.Status == LobbyStatus.Waiting)
                 {
-                    lobby.AddAccountById(id);
+                    lobby.AddPlayerById(id);
                     return lobby;
                 }
             }
 
             // if no lobbies were waiting for another player
             Lobby newLobby = CreateNewLobby();
-            newLobby.AddAccountById(id);
+            newLobby.AddPlayerById(id);
             Debug.WriteLine("Created a new lobby.");
 
             return newLobby;
@@ -43,19 +43,19 @@ namespace Discord_Hex_Bot
             lobbies.Add(newLobby);
             return newLobby;
         }
-        public static void RemoveAccountById(ulong id)
+        public static void RemovePlayerById(ulong id)
         {
             foreach(Lobby lobby in lobbies)
             {
-                if (lobby.RemoveAccountById(id))
+                if (lobby.RemovePlayerById(id))
                     return;
             }
         }
-        public static bool ContainsAccountWithId(ulong id)
+        public static bool ContainsPlayerWithId(ulong id)
         { 
             foreach(Lobby lobby in lobbies)
             {
-                if (lobby.ContainsAccountWithId(id))
+                if (lobby.ContainsPlayerWithId(id))
                     return true;
             }
 

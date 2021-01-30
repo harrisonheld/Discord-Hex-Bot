@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using Discord_Hex_Bot.game;
 using Discord_Hex_Bot.game.entity;
 
 namespace Discord_Hex_Bot
@@ -17,6 +17,7 @@ namespace Discord_Hex_Bot
                 return players;
             }
         }
+        private GameInstance instance;
 
         private LobbyStatus status = LobbyStatus.Waiting;
         public LobbyStatus Status
@@ -30,13 +31,14 @@ namespace Discord_Hex_Bot
         public void StartGame()
         {
             status = LobbyStatus.InGame;
+            instance = new GameInstance(players);
         }
         public void SuspendGame()
         {
             status = LobbyStatus.Waiting;
         }
 
-        public void AddAccountById(ulong id)
+        public void AddPlayerById(ulong id)
         {
             Player p = new Player(id);
             players.Add(p);
@@ -44,7 +46,7 @@ namespace Discord_Hex_Bot
             if (players.Count >= MAX_PLAYERS)
                 StartGame();
         }
-        public bool RemoveAccountById(ulong id)
+        public bool RemovePlayerById(ulong id)
         {
             int idx = IdToIdx(id);
             if (idx > 0)
@@ -59,7 +61,7 @@ namespace Discord_Hex_Bot
 
             return false;
         }
-        public Player GetAccountById(ulong id)
+        public Player GetPlayerById(ulong id)
         {
             foreach (Player p in players)
             {
@@ -69,7 +71,7 @@ namespace Discord_Hex_Bot
 
             return null;
         }
-        public bool ContainsAccountWithId(ulong id)
+        public bool ContainsPlayerWithId(ulong id)
         {
             foreach (Player p in players)
             {
@@ -101,7 +103,7 @@ namespace Discord_Hex_Bot
         /// <param name="id"></param>
         public void AcceptCommandFromId(string[] args, ulong id)
         {
-
+            instance.HandleInput(args, GetPlayerById(id));
         }
 
         public string LobbyInfo()
