@@ -74,6 +74,8 @@ namespace Discord_Hex_Bot
 
             ulong authorId = message.Author.Id;
             ulong channelId = message.Channel.Id;
+            ulong guildId = (message.Channel as IGuildChannel).GuildId;
+            UserInfo info = new UserInfo(authorId, channelId, guildId);
 
             //Commands begin here
             if (command.Equals("joinlobby"))
@@ -82,8 +84,8 @@ namespace Discord_Hex_Bot
                 {
                     Player p = LobbyManager.GetLobbyContainingPlayerId(authorId).GetPlayerById(authorId);
 
-                    ulong joinedFromGuildId = p.Ids.GuildId;
-                    ulong joinedFromChannelId = p.Ids.ChannelId;
+                    ulong joinedFromGuildId = p.Info.GuildId;
+                    ulong joinedFromChannelId = p.Info.ChannelId;
 
                     IGuild guild = _client.GetGuild(joinedFromGuildId);
                     string joinedFromGuildName = guild.Name;
@@ -96,7 +98,7 @@ namespace Discord_Hex_Bot
                     return Task.CompletedTask;
                 }
 
-                Lobby lobby = LobbyManager.AssignPlayerToLobby(authorId, channelId);
+                Lobby lobby = LobbyManager.AssignPlayerToLobby(info);
 
                 string title = "";
                 if (lobby.Players.Count == Settings.MAX_PLAYERS)
