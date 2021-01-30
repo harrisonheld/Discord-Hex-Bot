@@ -51,7 +51,7 @@ namespace Discord_Hex_Bot
             {
                 players.RemoveAt(idx);
 
-                if (player.Count < MAX_PLAYERS)
+                if (players.Count < MAX_PLAYERS)
                     SuspendGame();
 
                 return true;
