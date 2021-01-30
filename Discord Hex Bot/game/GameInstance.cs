@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Discord_Hex_Bot.game
 {
-    class GameInstance
+    public class GameInstance
     {
         public List<entity.Player> players;
         private Random random;
