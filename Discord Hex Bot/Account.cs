@@ -9,7 +9,7 @@ namespace Discord_Hex_Bot
     public class Account
     {
         const string ACCOUNTS_PATH = @"./accounts.txt"; // .txt where accounts are stored
-        const string DELIMTIER = ',';
+        const string DELIMTIER = ",";
 
         public ulong userId { get; set; }
         public int coins;
@@ -25,11 +25,13 @@ namespace Discord_Hex_Bot
             string[] lines = File.ReadAllLines(ACCOUNTS_PATH);
             bool foundUser = false; // if the account was found in the accounts list
 
-            foreach(string line in lines.Skip(1))
+            // for all lines, except the first (which is the header)
+            for (int i = 1; i < lines.Length; i++)
             {
+                string line = lines[i];
                 string[] fields = line.Split(DELIMTIER);
 
-                lineUserId; = ulong.Parse(field[0]);
+                ulong lineUserId = ulong.Parse(fields[0]);
 
                 // if user was found
                 if (lineUserId == userId)
