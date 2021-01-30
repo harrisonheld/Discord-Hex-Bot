@@ -36,9 +36,9 @@ namespace Discord_Hex_Bot
             status = LobbyStatus.Waiting;
         }
 
-        public void AddPlayerById(ulong id)
+        public void AddPlayer(ulong userId, ulong channelId)
         {
-            Player p = new Player(id);
+            Player p = new Player(userId, channelId);
             players.Add(p);
 
             if (players.Count >= Settings.MAX_PLAYERS)
