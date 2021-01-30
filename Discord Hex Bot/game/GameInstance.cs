@@ -22,7 +22,7 @@ namespace Discord_Hex_Bot.game
             this.board = new render.Board(this);
             this.players = entities;
             INSTANCE = this;
-            this.BroadcastToAll("pingaz")
+            this.BroadcastToAll("pingaz");
         }
         public GameInstance(List<entity.Entity> entities, int seed)
         {
