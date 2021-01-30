@@ -46,7 +46,7 @@ namespace Discord_Hex_Bot
         }
         public bool RemovePlayerById(ulong id)
         {
-            int idx = IdToIdx(id);
+            int idx = UserIdToIdx(id);
             if (idx > 0)
             {
                 players.RemoveAt(idx);
@@ -59,33 +59,33 @@ namespace Discord_Hex_Bot
 
             return false;
         }
-        public Player GetPlayerById(ulong id)
+        public Player GetPlayerById(ulong userId)
         {
             foreach (Player p in players)
             {
-                if (p.Id == id)
+                if (p.Info.UserId == userId)
                     return p;
             }
 
             return null;
         }
-        public bool ContainsPlayerWithId(ulong id)
+        public bool ContainsPlayerWithId(ulong userId)
         {
             foreach (Player p in players)
             {
-                if (p.Id == id)
+                if (p.Info.UserId == userId)
                     return true;
             }
 
             return false;
         }
-        private int IdToIdx(ulong id)
+        private int UserIdToIdx(ulong userId)
         {
             int idx = 0;
 
             foreach (Player p in players)
             {
-                if (p.Id == id)
+                if (p.Info.UserId == userId)
                     return idx;
 
                 idx++;
