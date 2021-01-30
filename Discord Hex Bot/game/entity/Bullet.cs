@@ -13,7 +13,7 @@ namespace Discord_Hex_Bot.game.entity
             if(!this.board.isClear(this.pos, this.layer))
             {
                 // if(this.board.getEntity(this.pos, render.RenderLayer.Main) instanceof ())
-                this.Remove()
+                this.Remove();
             }
         }
     }

@@ -24,7 +24,7 @@ namespace Discord_Hex_Bot.game.entity
             this.dirty = false;
             this.board = Board.INVALID;
             this.layer = RenderLayer.Background;
-            this.glyph = Settings.GROUND_TEXTURE;
+            this.glyph = Settings.GROUND_GLYPHS[0];
         }
         private Entity(Position _position, RenderLayer _renderLayer, Board _board)
         {
