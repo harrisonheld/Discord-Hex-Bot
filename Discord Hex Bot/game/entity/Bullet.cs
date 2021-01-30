@@ -9,8 +9,12 @@ namespace Discord_Hex_Bot.game.entity
         public math.Direction direction;
         public override void Step()
         {
-            if()
             this.pos = this.pos.offset(this.direction);
+            if(!this.board.isClear(this.pos, this.layer))
+            {
+                // if(this.board.getEntity(this.pos, render.RenderLayer.Main) instanceof ())
+                this.Remove()
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Discord_Hex_Bot.game.entity
         public RenderLayer layer;
         public Board board;
         // lol texture
-        public char texture;
+        public char glyph;
 
         public Entity()
         {
@@ -24,7 +24,7 @@ namespace Discord_Hex_Bot.game.entity
             this.dirty = false;
             this.board = Board.INVALID;
             this.layer = RenderLayer.Background;
-            this.texture = Settings.GROUND_TEXTURE;
+            this.glyph = Settings.GROUND_TEXTURE;
         }
         private Entity(Position _position, RenderLayer _renderLayer, Board _board)
         {
@@ -60,6 +60,11 @@ namespace Discord_Hex_Bot.game.entity
         }
 
         public virtual void Step()
+        {
+
+        }
+
+        public void Remove()
         {
 
         }

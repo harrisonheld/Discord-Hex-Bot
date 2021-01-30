@@ -10,6 +10,7 @@ namespace Discord_Hex_Bot.game.entity
         {
             this.pos = position;
             this.board = board;
+            this.layer = render.RenderLayer.Main;
         }
         public override bool Immovable()
         {
