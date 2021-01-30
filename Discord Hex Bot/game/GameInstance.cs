@@ -17,5 +17,12 @@ namespace Discord_Hex_Bot.game
         {
             this.players = players;
         }
+        public void HandleInput(string[] args, entity.Player sender)
+        {
+            if(players.Contains(sender))
+            {
+
+            }
+        }
     }
 }

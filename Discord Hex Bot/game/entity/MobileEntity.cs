@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Discord_Hex_Bot.game.entity
 {
-    abstract class MobileEntity : Entity
+    public abstract class MobileEntity : Entity
     {
         public override bool move(Direction direction)
         {
