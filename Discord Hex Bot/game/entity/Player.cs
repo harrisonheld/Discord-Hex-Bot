@@ -44,7 +44,6 @@ namespace Discord_Hex_Bot.game.entity
                 // if user was found
                 if (lineUserId == accountId)
                 {
-
                     break;
                 }
             }
