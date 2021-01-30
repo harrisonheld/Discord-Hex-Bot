@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+
 using Discord_Hex_Bot.game;
 using Discord_Hex_Bot.game.entity;
+
+using Discord;
 
 namespace Discord_Hex_Bot
 {
@@ -104,12 +107,30 @@ namespace Discord_Hex_Bot
             instance.HandleInput(args, GetPlayerById(id));
         }
 
-        public string LobbyInfo()
+        public EmbedBuilder LobbyInfoEmbed()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append($"Players: {players.Count} / {Settings.MAX_PLAYERS}\n");
-            sb.Append($"Status: {status}\n");
-            return sb.ToString();
+            return new EmbedBuilder()
+            {
+                Title = "Lobby",
+                Description = "Here's some stats:",
+                Fields = new List<EmbedFieldBuilder>()
+                    {
+                        new EmbedFieldBuilder()
+                        {
+                            Name = "Players: ",
+                            Value = $"[{players.Count} / {Settings.MAX_PLAYERS}]",
+                            IsInline = true
+                        },
+                        new EmbedFieldBuilder()
+                        {
+                            Name = "Status:",
+                            Value = status,
+                            IsInline = true
+                        }
+                    },
+
+                Color = Color.Blue
+            };
         }
         public override string ToString()
         {

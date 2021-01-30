@@ -80,56 +80,32 @@ namespace Discord_Hex_Bot
             //Commands begin here
             if (command.Equals("joinlobby"))
             {
+                // if this user is already in a lobby
                 if (LobbyManager.ContainsPlayerWithId(authorId))
                 {
-                    Player p = LobbyManager.GetLobbyContainingPlayerId(authorId).GetPlayerById(authorId);
+                    // make a message telling them where they joined the lobby from.
+                    Lobby lobby = LobbyManager.GetLobbyContainingPlayerId(authorId);
+                    Player p = lobby.GetPlayerById(authorId);
 
                     ulong joinedFromGuildId = p.Info.GuildId;
                     ulong joinedFromChannelId = p.Info.ChannelId;
 
-                    IGuild guild = _client.GetGuild(joinedFromGuildId);
-                    string joinedFromGuildName = guild.Name;
-                    string joinedFromChannelName = guild.GetChannelAsync(joinedFromChannelId).Result.Name;
+                    string joinedFromGuildName = _client.GetGuild(guildId).Name;
+                    string joinedFromChannelName = (_client.GetChannel(channelId) as IMessageChannel).Name;
 
-                    message.Channel.SendMessageAsync($"You are already in a lobby! You joined from " +
+                    EmbedBuilder eb = lobby.LobbyInfoEmbed();
+
+                    message.Channel.SendMessageAsync($"You are already in a lobby! You joined it from " +
                         $"the channel #{joinedFromChannelName} in the server {joinedFromGuildName}\n" +
-                        $"Use hex.leavelobby to close that session if you want to start a new one here.");
-
-                    return Task.CompletedTask;
+                        $"Use hex.leavelobby to close that session if you want to start a new one here.", false, eb.Build());
                 }
-
-                Lobby lobby = LobbyManager.AssignPlayerToLobby(info);
-
-                string title = "";
-                if (lobby.Players.Count == Settings.MAX_PLAYERS)
-                    title = "The game can start now!";
                 else
-                    title = "You have joined a lobby!";
-
-                EmbedBuilder eb = new EmbedBuilder()
                 {
-                    Title = title,
-                    Description = "Here's some stats:",
-                    Fields = new List<EmbedFieldBuilder>()
-                    {
-                        new EmbedFieldBuilder()
-                        {
-                            Name = "Players: ",
-                            Value = $"[{lobby.Players.Count} / {Settings.MAX_PLAYERS}]",
-                            IsInline = true
-                        },
-                        new EmbedFieldBuilder()
-                        {
-                            Name = "Status:",
-                            Value = lobby.Status,
-                            IsInline = true
-                        }
-                    },
-
-                    Color = Color.Blue
-                };
-
-                message.Channel.SendMessageAsync("", false, eb.Build());
+                    // assign the player to a new lobby
+                    Lobby lobby = LobbyManager.AssignPlayerToLobby(info);
+                    EmbedBuilder eb = lobby.LobbyInfoEmbed();
+                    message.Channel.SendMessageAsync("Joined a lobby!", false, eb.Build());
+                }
             }
             else if (command.Equals("leavelobby"))
             {
@@ -186,12 +162,9 @@ namespace Discord_Hex_Bot
         public static Task BroadcastToUser(UserInfo info, string text)
         {
             ulong channelId = info.ChannelId;
-            ulong guildId = info.GuildId;
 
-            IGuild guild = _client.GetGuild(guildId);
-            // the following will break if its a dm channel, probably
-            ISocketMessageChannel channel = guild.GetChannelAsync(channelId).Result as ISocketMessageChannel;
-
+            // the following might break if its a dm channel
+            ISocketMessageChannel channel = _client.GetChannel(channelId) as ISocketMessageChannel;
             channel.SendMessageAsync(text);
 
             return Task.CompletedTask;
