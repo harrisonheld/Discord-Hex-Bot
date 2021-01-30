@@ -11,7 +11,7 @@ namespace Discord_Hex_Bot
         const string ACCOUNTS_PATH = @"./accounts.txt"; // .txt where accounts are stored
         const string DELIMTIER = ",";
 
-        public ulong userId { get; set; }
+        public ulong userId { get; set; } // this should be the same as the discord user's ID
         public int coins;
 
         private ulong channelId;
@@ -49,9 +49,12 @@ namespace Discord_Hex_Bot
             }
         }
 
-        public void Save()
+        public override string ToString()
         {
-
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"User ID: {userId}\n");
+            sb.Append($"Coins: {coins}\n");
+            return sb.ToString();
         }
     }
 }

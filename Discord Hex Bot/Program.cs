@@ -71,7 +71,9 @@ namespace Discord_Hex_Bot
             //Commands begin here
             if (command.Equals("start"))
             {
-                Account account = new Account(message.Author.userId);
+                Account account = new Account(message.Author.Id);
+
+                message.Channel.SendMessageAsync(account.ToString());
             }
 
             return Task.CompletedTask;
