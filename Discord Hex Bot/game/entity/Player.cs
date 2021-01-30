@@ -6,7 +6,7 @@ using System.IO;
 
 namespace Discord_Hex_Bot.game.entity
 {
-    class Player : MobileEntity
+    public class Player : MobileEntity
     {
         private readonly ulong id;
         public ulong Id
@@ -19,7 +19,10 @@ namespace Discord_Hex_Bot.game.entity
 
         public Player(ulong accountId)
         {
-            id = accountId;
+            this.id = accountId;
+            this.pos = new math.Position(0, 0);
+            this.dirty = true;
+            this.layer = RenderLayer.Main;
 
             // check if this id is already in the accounts list
             string[] lines = File.ReadAllLines(Settings.PLAYERS_PATH);

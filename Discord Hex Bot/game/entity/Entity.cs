@@ -16,7 +16,6 @@ namespace Discord_Hex_Bot.game.entity
         public RenderLayer layer;
         public Board board;
         // whether or not other entities can overwrite this one
-        public bool immovable;
 
         public Entity()
         {
@@ -31,6 +30,11 @@ namespace Discord_Hex_Bot.game.entity
             this.dirty = true;
             this.layer = _renderLayer;
             this.board = _board;
+        }
+
+        public virtual bool immovable()
+        {
+            return false;
         }
 
         public virtual bool move(Direction direction)
