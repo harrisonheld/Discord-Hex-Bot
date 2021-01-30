@@ -14,5 +14,6 @@ namespace Discord_Hex_Bot
         public static char[] PLAYER_GLYPHS = new char[4] { 'a', 'b', 'c', 'd' };
         public static char[] ENEMY_GLYPHS = new char[1] { 'E' };
         public static char[] ARROW_GLYPHS = new char[2] { '/', '-' };
+        public static char[] ROCK_GLYPHS = new char[1] { 'o' };
     }
 }
