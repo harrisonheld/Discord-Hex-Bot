@@ -6,6 +6,15 @@ namespace Discord_Hex_Bot.game.entity
     public class Player : MobileEntity
     {
         private readonly ulong id;
+        private readonly ulong channelId;
+
+        public ulong ChannelId
+        {
+            get
+            {
+                return this.channelId;
+            }
+        }
         public ulong Id
         {
             get
@@ -14,7 +23,7 @@ namespace Discord_Hex_Bot.game.entity
             }
         }
 
-        public Player(ulong accountId)
+        public Player(ulong accountId, ulong channelId)
         {
             this.id = accountId;
             this.pos = new math.Position(0, 0);
@@ -43,7 +52,7 @@ namespace Discord_Hex_Bot.game.entity
 
         public void Shoot()
         {
-
+            Bullet bullet = new Bullet();
         }
     }
 }
