@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using System.Text;
 
+using Discord_Hex_Bot.game.entity;
+
 namespace Discord_Hex_Bot
 {
     class Lobby
     {
         private const int MAX_PLAYERS = 2; // how many players are needed to play
-        private List<Account> accounts = new List<Account>();
-        public List<Account> Accounts 
+        private List<Player> players = new List<Player>();
+        public List<Player> Players 
         {
             get
             {
-                return accounts;
+                return players;
             }
         }
 
@@ -36,10 +38,10 @@ namespace Discord_Hex_Bot
 
         public void AddAccountById(ulong id)
         {
-            Account a = new Account(id);
-            accounts.Add(a);
+            Player p = new Player(id);
+            players.Add(p);
 
-            if (accounts.Count >= MAX_PLAYERS)
+            if (players.Count >= MAX_PLAYERS)
                 StartGame();
         }
         public bool RemoveAccountById(ulong id)
@@ -47,9 +49,9 @@ namespace Discord_Hex_Bot
             int idx = IdToIdx(id);
             if (idx > 0)
             {
-                accounts.RemoveAt(idx);
+                players.RemoveAt(idx);
 
-                if (accounts.Count < MAX_PLAYERS)
+                if (player.Count < MAX_PLAYERS)
                     SuspendGame();
 
                 return true;
@@ -57,21 +59,21 @@ namespace Discord_Hex_Bot
 
             return false;
         }
-        public Account GetAccountById(ulong id)
+        public Player GetAccountById(ulong id)
         {
-            foreach (Account a in accounts)
+            foreach (Player p in players)
             {
-                if (a.accountId == id)
-                    return a;
+                if (p.playerId == id)
+                    return p;
             }
 
             return null;
         }
         public bool ContainsAccountWithId(ulong id)
         {
-            foreach (Account a in accounts)
+            foreach (Player p in players)
             {
-                if (a.accountId == id)
+                if (p.playerId == id)
                     return true;
             }
 
@@ -81,9 +83,9 @@ namespace Discord_Hex_Bot
         {
             int idx = 0;
 
-            foreach (Account a in accounts)
+            foreach (Player p in players)
             {
-                if (a.accountId == id)
+                if (p.playerId == id)
                     return idx;
 
                 idx++;
@@ -105,14 +107,14 @@ namespace Discord_Hex_Bot
         public string LobbyInfo()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append($"Players: {accounts.Count} / {MAX_PLAYERS}\n");
+            sb.Append($"Players: {players.Count} / {MAX_PLAYERS}\n");
             sb.Append($"Status: {status}\n");
             return sb.ToString();
         }
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append($"Players: {accounts.Count}\n");
+            sb.Append($"Players: {players.Count}\n");
             sb.Append($"Status: {status}\n");
             return sb.ToString();
         }
