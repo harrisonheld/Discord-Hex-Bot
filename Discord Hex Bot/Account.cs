@@ -8,22 +8,22 @@ namespace Discord_Hex_Bot
 {
     public class Account
     {
-        const string ACCOUNTS_PATH = @"./accounts.txt"; // .txt where accounts are stored
+        const string ACCOUNTS_PATH = @"./accounts.csv"; // .txt where accounts are stored
         const string DELIMTIER = ",";
 
-        public ulong userId { get; set; } // this should be the same as the discord user's ID
-        public int coins;
+        // things that should be saved
+        public ulong accountId { get; set; } // this should be the same as the discord user's ID
+        public int coins { get; set; } = 0;
 
-        private ulong channelId;
-        private ulong guildId;
+        // things that should not be saved
+        private AccountStatus status = AccountStatus.DoingNothing;
 
-        public Account(ulong _userId)
+        public Account(ulong _accountId)
         {
-            userId = _userId;
+            accountId = _accountId;
 
             // check if this id is already in the accounts list
             string[] lines = File.ReadAllLines(ACCOUNTS_PATH);
-            bool foundUser = false; // if the account was found in the accounts list
 
             // for all lines, except the first (which is the header)
             for (int i = 1; i < lines.Length; i++)
@@ -34,27 +34,32 @@ namespace Discord_Hex_Bot
                 ulong lineUserId = ulong.Parse(fields[0]);
 
                 // if user was found
-                if (lineUserId == userId)
+                if (lineUserId == accountId)
                 {
-                    foundUser = true;
-
                     coins = int.Parse(fields[1]);
+
+                    break;
                 }
             }
+        }
 
-            // if the user wasnt found in the list, make a new one
-            if(!foundUser)
-            {
-                coins = 0;
-            }
+        public void Save()
+        {
+
         }
 
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append($"User ID: {userId}\n");
+            sb.Append($"User ID: {accountId}\n");
             sb.Append($"Coins: {coins}\n");
             return sb.ToString();
         }
+    }
+
+    public enum AccountStatus
+    {
+        DoingNothing,
+        InLobby,
     }
 }
