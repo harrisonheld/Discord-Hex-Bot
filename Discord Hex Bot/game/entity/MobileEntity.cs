@@ -6,7 +6,7 @@ namespace Discord_Hex_Bot.game.entity
     {
         public override bool Move(Direction direction)
         {
-            if (this.board.isClear(this.pos.offset(direction), this.layer))
+            if (this.board.IsClear(this.pos.offset(direction), this.layer))
             {
                 base.Move(direction);
                 return true;

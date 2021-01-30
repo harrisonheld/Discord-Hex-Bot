@@ -5,8 +5,12 @@ namespace Discord_Hex_Bot.game
 {
     public class GameInstance
     {
+        public static GameInstance INSTANCE;
+
         public List<entity.Entity> entities = new List<entity.Entity> { };
         private Random random;
+
+        public render.Board board;
 
         public GameInstance(List<entity.Player> entities)
         {
@@ -14,6 +18,8 @@ namespace Discord_Hex_Bot.game
             {
                 this.entities.Add(player);
             }
+            this.board = new render.Board(this);
+            INSTANCE = this;
         }
         public GameInstance(List<entity.Entity> entities, int seed)
         {
@@ -51,5 +57,10 @@ namespace Discord_Hex_Bot.game
                 entity.Step();
             }
         }
+
+        public void BroadcastToAll(String message)
+            {
+
+            }
     }
 }

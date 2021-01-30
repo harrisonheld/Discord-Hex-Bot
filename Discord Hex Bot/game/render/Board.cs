@@ -6,23 +6,26 @@ namespace Discord_Hex_Bot.game.render
 {
     public class Board
     {
-        public static Board INVALID = new Board();
+        public GameInstance game;
+        public Board(GameInstance game)
+        {
+
+        }
+        public static Board INVALID = new Board(GameInstance.);
 
         public readonly GameInstance room;
 
-        public string texture;
-
         public SortedDictionary<Position, Tile> tiles = new SortedDictionary<Position, Tile> { };
 
-        public Entity getEntity(Position position, RenderLayer layer)
+        public Entity GetEntity(Position position, RenderLayer layer)
         {
             Tile tile = tiles[position];
             return tile.getEntity(layer);
         }
 
-        public bool isClear(Position position, RenderLayer layer)
+        public bool IsClear(Position position, RenderLayer layer)
         {
-            return this.getEntity(position, layer).Equals(Entity.EMPTY);
+            return this.GetEntity(position, layer).Equals(Entity.EMPTY);
         }
 
     }
