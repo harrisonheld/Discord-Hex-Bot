@@ -114,7 +114,7 @@ namespace Discord_Hex_Bot
             }
             if (command.Equals("input"))
             {
-                if(LobbyManager.ContainsPlayerWithId(authorId))
+                if(!LobbyManager.ContainsPlayerWithId(authorId))
                 {
                     message.Channel.SendMessageAsync("You aren't in a lobby!");
                 }
