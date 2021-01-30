@@ -14,11 +14,6 @@ namespace Discord_Hex_Bot
         private const string PREFIX = "hex.";
         private int prefixLength;
 
-        // what users are talking
-        List<ulong> userIDs = new List<ulong>();
-
-        IMessageChannel dmingChannel;
-
         public static void Main()
         => new Program().MainAsync().GetAwaiter().GetResult();
 
@@ -76,7 +71,7 @@ namespace Discord_Hex_Bot
             //Commands begin here
             if (command.Equals("start"))
             {
-                // do something
+                Account account = new Account(message.Author.userId);
             }
 
             return Task.CompletedTask;
