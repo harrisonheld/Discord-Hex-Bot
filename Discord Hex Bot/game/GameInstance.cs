@@ -62,10 +62,16 @@ namespace Discord_Hex_Bot.game
 
         public void BroadcastToAll(String message)
         {
+            List<UserInfo> uniqueUsers = new List<UserInfo> { };
             List<ulong> channels = new List<ulong> { };
             foreach (entity.Player player in this.players)
             {
                 ulong channelId = player.Info.ChannelId;
+                if(!channels.Contains(channelId))
+                {
+                    uniqueUsers.Add(player.Info);
+                    channels.Add(channelId);
+                }
             }
         }
     }
