@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Discord_Hex_Bot
 {
@@ -30,6 +31,18 @@ namespace Discord_Hex_Bot
 
             await _client.LoginAsync(TokenType.Bot, token);
             await _client.StartAsync();
+
+            while(true)
+            {
+                string input = Console.ReadLine();
+                if(input == "lobbies")
+                {
+                    foreach(Lobby lobby in LobbyManager.lobbies)
+                    {
+                        Console.WriteLine(lobby.ToString());
+                    }    
+                }
+            }
 
             // Block this task until the program is closed.
             await Task.Delay(-1);
@@ -68,10 +81,53 @@ namespace Discord_Hex_Bot
             // use Range operator 
             command = message.Content[prefixLength..lengthOfCommand].ToLower();
 
+            ulong authorId = message.Author.Id;
+
             //Commands begin here
-            if (command.Equals("start"))
+            if (command.Equals("joinlobby"))
             {
-                Account account = new Account(message.Author.userId);
+                if (LobbyManager.ContainsAccountWithId(authorId))
+                {
+                    message.Channel.SendMessageAsync("You are already in a lobby!");
+                    return Task.CompletedTask;
+                }
+
+                Lobby l = LobbyManager.AssignPlayerToLobbyById(authorId);
+
+                StringBuilder sb = new StringBuilder();
+                sb.Append("You have joined a lobby\n");
+                sb.Append(l.LobbyInfo());
+
+                message.Channel.SendMessageAsync(sb.ToString());
+            }
+            if (command.Equals("leavelobby"))
+            {
+                if (LobbyManager.ContainsAccountWithId(authorId))
+                {
+                    LobbyManager.RemoveAccountById(authorId);
+                    message.Channel.SendMessageAsync("You have left the lobby.");
+                }
+                else
+                {
+                    message.Channel.SendMessageAsync("You aren't in a lobby!");
+                }
+            }
+            if (command.Equals("input"))
+            {
+                if(LobbyManager.ContainsAccountWithId(authorId))
+                {
+                    message.Channel.SendMessageAsync("You aren't in a lobby!");
+                }
+                // make args list
+                // remove first word, which is hex.input
+                string[] parts = message.Content.Split(" ");
+                string[] args = new string[parts.Length - 1];
+                for(int i = 0; i < parts.Length - 1; i++)
+                {
+                    args[i] = parts[i + 1];
+                    Console.WriteLine($"{i}: {args[i]}");
+                }
+                LobbyManager.AcceptCommandFromId(args, authorId);
             }
 
             return Task.CompletedTask;
