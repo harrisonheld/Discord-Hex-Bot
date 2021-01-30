@@ -2,6 +2,14 @@
 {
     public class Bullet : MobileEntity
     {
+        public Bullet(Entity source, math.Direction direction)
+        {
+            this.layer = render.RenderLayer.Main;
+            if(!source.board.isClear(source.pos.offset(direction), this.layer))
+            {
+                this.Remove();
+            }
+        }
         public math.Direction direction;
         public override void Step()
         {
