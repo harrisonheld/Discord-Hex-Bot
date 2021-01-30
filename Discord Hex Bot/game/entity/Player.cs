@@ -5,27 +5,19 @@ namespace Discord_Hex_Bot.game.entity
 {
     public class Player : MobileEntity
     {
-        private readonly ulong id;
-        private readonly ulong channelId;
+        private readonly UserInfo userInfo;
 
-        public ulong ChannelId
+        public UserInfo Info
         {
             get
             {
-                return this.channelId;
-            }
-        }
-        public ulong Id
-        {
-            get
-            {
-                return this.id;
+                return this.userInfo;
             }
         }
 
-        public Player(ulong accountId, ulong channelId)
+        public Player(UserInfo info)
         {
-            this.id = accountId;
+            this.userInfo = info;
             this.pos = new math.Position(0, 0);
             this.dirty = true;
             this.layer = RenderLayer.Main;
@@ -42,7 +34,7 @@ namespace Discord_Hex_Bot.game.entity
                 ulong lineUserId = ulong.Parse(fields[0]);
 
                 // if user was found
-                if (lineUserId == accountId)
+                if (lineUserId == this.userInfo.UserId)
                 {
                     break;
                 }
