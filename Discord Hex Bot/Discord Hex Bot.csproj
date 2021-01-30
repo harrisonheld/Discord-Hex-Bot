@@ -11,13 +11,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="players.csv">
+    <None Update="resources\players.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\streamer.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="token.txt">
+    <None Update="resources\token.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

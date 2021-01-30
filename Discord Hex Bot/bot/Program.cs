@@ -27,7 +27,7 @@ namespace Discord_Hex_Bot
             _client.MessageReceived += CommandHandler;
             _client.Log += Log;
 
-            var token = File.ReadAllText(@"./token.txt");
+            var token = File.ReadAllText(Settings.TOKEN_PATH);
 
             await _client.LoginAsync(TokenType.Bot, token);
             await _client.StartAsync();
