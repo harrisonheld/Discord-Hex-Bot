@@ -53,6 +53,7 @@ namespace Discord_Hex_Bot.game.entity
         public void Shoot(math.Direction direction)
         {
             Bullet bullet = new Bullet(this, direction);
+            this.board.room.spawn(bullet);
         }
     }
 }
