@@ -86,7 +86,7 @@ namespace Discord_Hex_Bot
             //Commands begin here
             if (command.Equals("joinlobby"))
             {
-                if (LobbyManager.ContainsAccountWithId(authorId))
+                if (LobbyManager.ContainsPlayerWithId(authorId))
                 {
                     message.Channel.SendMessageAsync("You are already in a lobby!");
                     return Task.CompletedTask;
@@ -102,9 +102,9 @@ namespace Discord_Hex_Bot
             }
             if (command.Equals("leavelobby"))
             {
-                if (LobbyManager.ContainsAccountWithId(authorId))
+                if (LobbyManager.ContainsPlayerWithId(authorId))
                 {
-                    LobbyManager.RemoveAccountById(authorId);
+                    LobbyManager.RemovePlayerById(authorId);
                     message.Channel.SendMessageAsync("You have left the lobby.");
                 }
                 else
@@ -114,7 +114,7 @@ namespace Discord_Hex_Bot
             }
             if (command.Equals("input"))
             {
-                if(LobbyManager.ContainsAccountWithId(authorId))
+                if(LobbyManager.ContainsPlayerWithId(authorId))
                 {
                     message.Channel.SendMessageAsync("You aren't in a lobby!");
                 }
