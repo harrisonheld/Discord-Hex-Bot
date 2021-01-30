@@ -9,9 +9,9 @@ namespace Discord_Hex_Bot.game
         public List<entity.Entity> entities;
         private Random random;
 
-        public GameInstance(List<entity.Entity> entities)
+        public GameInstance(List<entity.Player> entities)
         {
-            this.entities = entities;
+            this.entities = (List<entity.Entity>)(Object) entities;
         }
         public GameInstance(List<entity.Entity> entities, int seed)
         {
