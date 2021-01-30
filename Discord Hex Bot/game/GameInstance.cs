@@ -6,7 +6,7 @@ namespace Discord_Hex_Bot.game
 {
     public class GameInstance
     {
-        public List<entity.Entity> entities;
+        public List<entity.Entity> entities = new List<entity.Entity> { };
         private Random random;
 
         public GameInstance(List<entity.Player> entities)

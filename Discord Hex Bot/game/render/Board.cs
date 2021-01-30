@@ -13,7 +13,7 @@ namespace Discord_Hex_Bot.game.render
 
         public string texture;
 
-        public SortedDictionary<Position, Tile> tiles;
+        public SortedDictionary<Position, Tile> tiles = new SortedDictionary<Position, Tile> { };
 
         public Entity getEntity(Position position, RenderLayer layer)
         {
