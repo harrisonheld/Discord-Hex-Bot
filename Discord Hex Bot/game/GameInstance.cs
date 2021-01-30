@@ -22,6 +22,7 @@ namespace Discord_Hex_Bot.game
             this.board = new render.Board(this);
             this.players = entities;
             INSTANCE = this;
+            this.BroadcastToAll("pingaz");
         }
         public GameInstance(List<entity.Entity> entities, int seed)
         {
@@ -62,10 +63,20 @@ namespace Discord_Hex_Bot.game
 
         public void BroadcastToAll(String message)
         {
+            List<UserInfo> uniqueUsers = new List<UserInfo> { };
             List<ulong> channels = new List<ulong> { };
             foreach (entity.Player player in this.players)
             {
                 ulong channelId = player.Info.ChannelId;
+                if(!channels.Contains(channelId))
+                {
+                    uniqueUsers.Add(player.Info);
+                    channels.Add(channelId);
+                }
+            }
+            foreach (UserInfo info in uniqueUsers)
+            {
+                Program.BroadcastToUser(info, message);
             }
         }
     }
