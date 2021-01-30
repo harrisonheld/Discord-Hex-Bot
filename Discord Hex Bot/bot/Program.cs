@@ -7,24 +7,27 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Text;
 
+using Discord_Hex_Bot.game;
+using Discord_Hex_Bot.game.entity;
+
 namespace Discord_Hex_Bot
 {
-    class Program
+    static class Program
     {
         // the prefix used to do commands
         private const string PREFIX = "hex.";
-        private int prefixLength;
+        private static int prefixLength;
 
         public static void Main()
-        => new Program().MainAsync().GetAwaiter().GetResult();
+        => MainAsync().GetAwaiter().GetResult();
 
-        private DiscordSocketClient _client;
-        public async Task MainAsync()
+        private static DiscordSocketClient _client;
+        public static async Task MainAsync()
         {
             prefixLength = PREFIX.Length;
 
             _client = new DiscordSocketClient();
-            _client.MessageReceived += CommandHandler;
+            _client.MessageReceived += HandleMessage;
             _client.Log += Log;
 
             var token = File.ReadAllText(Settings.TOKEN_PATH);
@@ -36,13 +39,13 @@ namespace Discord_Hex_Bot
             await Task.Delay(-1);
         }
 
-        private Task Log(LogMessage msg)
+        private static Task Log(LogMessage msg)
         {
             Console.WriteLine(msg.ToString());
             return Task.CompletedTask;
         }
 
-        private Task CommandHandler(SocketMessage message)
+        private static Task HandleMessage(SocketMessage message)
         {
             //variables
             string command = "";
@@ -77,7 +80,19 @@ namespace Discord_Hex_Bot
             {
                 if (LobbyManager.ContainsPlayerWithId(authorId))
                 {
-                    message.Channel.SendMessageAsync("You are already in a lobby!");
+                    Player p = LobbyManager.GetLobbyContainingPlayerId(authorId).GetPlayerById(authorId);
+
+                    ulong joinedFromGuildId = p.Ids.GuildId;
+                    ulong joinedFromChannelId = p.Ids.ChannelId;
+
+                    IGuild guild = _client.GetGuild(joinedFromGuildId);
+                    string joinedFromGuildName = guild.Name;
+                    string joinedFromChannelName = guild.GetChannelAsync(joinedFromChannelId).Result.Name;
+
+                    message.Channel.SendMessageAsync($"You are already in a lobby! You joined from " +
+                        $"the channel #{joinedFromChannelName} in the server {joinedFromGuildName}\n" +
+                        $"Use hex.leavelobby to close that session if you want to start a new one here.");
+
                     return Task.CompletedTask;
                 }
 
@@ -162,6 +177,20 @@ namespace Discord_Hex_Bot
 
                 message.Channel.SendMessageAsync(sb.ToString());
             }
+
+            return Task.CompletedTask;
+        }
+
+        public static Task BroadcastToUser(UserInfo info, string text)
+        {
+            ulong channelId = info.ChannelId;
+            ulong guildId = info.GuildId;
+
+            IGuild guild = _client.GetGuild(guildId);
+            // the following will break if its a dm channel, probably
+            ISocketMessageChannel channel = guild.GetChannelAsync(channelId).Result as ISocketMessageChannel;
+
+            channel.SendMessageAsync(text);
 
             return Task.CompletedTask;
         }
