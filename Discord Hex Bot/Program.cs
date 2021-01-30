@@ -80,13 +80,24 @@ namespace Discord_Hex_Bot
                     return Task.CompletedTask;
                 }
 
-                Lobby l = LobbyManager.AssignPlayerToLobbyById(authorId);
+                Lobby lobby = LobbyManager.AssignPlayerToLobbyById(authorId);
 
-                StringBuilder sb = new StringBuilder();
-                sb.Append("You have joined a lobby\n");
-                sb.Append(l.LobbyInfo());
+                EmbedBuilder eb = new EmbedBuilder()
+                {
+                    Title = "You have joined a lobby!",
+                    Fields = new List<EmbedFieldBuilder>()
+                    {
+                        new EmbedFieldBuilder()
+                        {
+                            Name = "Field 1 (inline)",
+                            Value = $"{lobby.Players.Count} / {Settings.MAX_PLAYERS}"
+                        }
+                    },
 
-                message.Channel.SendMessageAsync(sb.ToString());
+                    Color = new Color(255, 255, 255)
+                };
+
+                message.Channel.SendMessageAsync("", false, eb.Build());
             }
             else if (command.Equals("leavelobby"))
             {
@@ -135,46 +146,6 @@ namespace Discord_Hex_Bot
                 }
 
                 message.Channel.SendMessageAsync(sb.ToString());
-            }
-            else if (command.Equals("embedtest"))
-            {
-                message.Channel.SendMessageAsync("Doing embed test.");
-
-                var eb = new EmbedBuilder()
-                {
-                    Title = "This is the title.",
-                    Footer = new EmbedFooterBuilder()
-                    {
-                        Text = "This is the footer text.",
-                        IconUrl = "https://cdn.discordapp.com/attachments/741747309683015860/805149799199670272/df6bb81a4cfdff3507e261ebaf6a40efe7bf225e223a74a9d824b755d0fb1e46_1.jpg.jpg"
-                    },
-                    Description = "This is the description",
-                    Fields = new List<EmbedFieldBuilder>()
-                    {
-                        new EmbedFieldBuilder()
-                        {
-                            Name = "Field 1 (inline)",
-                            Value = "Value 1",
-                            IsInline = true
-                        },
-                        new EmbedFieldBuilder()
-                        {
-                            Name = "Field 2",
-                            Value = "Value 2",
-                            IsInline = false
-                        },
-                        new EmbedFieldBuilder()
-                        {
-                            Name = "Field 3 (inline)",
-                            Value = "Value 3",
-                            IsInline = true
-                        }
-                    },
-                    ThumbnailUrl = "https://media.discordapp.net/attachments/741747309683015860/804922847235407912/streamer_man.png",
-                    Color = new Color(0, 0, 0),
-                };
-
-                message.Channel.SendMessageAsync("", false, eb.Build());
             }
 
             return Task.CompletedTask;
