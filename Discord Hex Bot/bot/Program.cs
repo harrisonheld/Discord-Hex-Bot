@@ -141,15 +141,14 @@ namespace Discord_Hex_Bot
             return Task.CompletedTask;
         }
 
-        public static Task BroadcastToUser(ref UserInfo info, string text)
+        public static Task BroadcastToUser(UserInfo info, string text)
         {
             ulong channelId = info.ChannelId;
 
             // the following might break if its a dm channel
             ISocketMessageChannel channel = _client.GetChannel(channelId) as ISocketMessageChannel;
-            ulong messageId = channel.SendMessageAsync(text).Result.Id;
-            info.ReactMessageId = messageId;
-            Console.WriteLine(messageId);
+            IMessage message = channel.SendMessageAsync(text).Result;
+            message.AddReactionAsync(Emote.Parse(":confounded:"));
 
             return Task.CompletedTask;
         }
