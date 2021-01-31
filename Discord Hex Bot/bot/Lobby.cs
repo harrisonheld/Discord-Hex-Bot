@@ -40,7 +40,7 @@ namespace Discord_Hex_Bot
 
         public void StartGame()
         {
-            instance = new GameInstance(users);
+            instance = new GameInstance(ref users);
             status = LobbyStatus.InGame;
         }
         public void SuspendGame()

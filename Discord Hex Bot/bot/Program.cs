@@ -64,12 +64,18 @@ namespace Discord_Hex_Bot
         {
             IUserMessage message = await cachedMessage.GetOrDownloadAsync();
             ulong reactedId = message.Id; // id of the message that the reaction was left on
-            ulong reactorId = message.Author.Id; // id of the user who reactd to the message
+            ulong reactorId = reaction.User.Value.Id; // id of the user who reactd to the message
 
             // id of the most recent map message that was sent to reactor.
-            ulong reactorMapMessageId = LobbyManager.GetLobbyContainingPlayerId(reactorId).GetUserInfoById(reactorId).ReactMessageId;
+            Lobby lobby = LobbyManager.GetLobbyContainingPlayerId(reactorId);
+            if (lobby == null)
+                return;
 
-            if (reactedId != reactorMapMessageId) // this is not the message we care about
+            UserInfo info = lobby.GetUserInfoById(reactorId);
+            if (info.UserId == 0) // UserInfo can't be null, but all its value will be zero
+                return;
+
+            if (reactedId != info.ReactMessageId) // this is not the message we care about
                 return;
 
             Console.WriteLine("The right thingy was reacted to.");

@@ -16,7 +16,7 @@ namespace Discord_Hex_Bot.game
         public bool active;
         public int steps;
 
-        public GameInstance(List<UserInfo> userInfos)
+        public GameInstance(ref List<UserInfo> userInfos)
         {
             INSTANCE = this;
             this.random = new Random();
@@ -35,7 +35,7 @@ namespace Discord_Hex_Bot.game
                 int index = player.pos.getValue();
                 this.entities[index] = player;
             }
-            this.BroadcastToAll("Lobby full- game has begun!");
+            this.BroadcastToAll("Lobby full - game has begun!");
 
             this.players[this.steps % this.players.Count].turn = true;
         }
