@@ -92,15 +92,17 @@ namespace Discord_Hex_Bot
                     break;
 
                 case EmojiWord.Bow:
+                    Console.WriteLine("bow clicked");
                     info.ShootingThisTurn = true;
                     return Task.CompletedTask;
-                    break;
             }
 
             string actionArg = info.ShootingThisTurn ? "shoot" : "move";
             string[] args = new string[] { actionArg, dirArg };
 
             LobbyManager.HandleInput(args, reactorId);
+            Console.WriteLine("shooting this turn: " + info.ShootingThisTurn);
+            Console.WriteLine(args[0] + " " + args[1]);
 
             return Task.CompletedTask;
         }
