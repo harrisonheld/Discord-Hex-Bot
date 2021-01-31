@@ -24,7 +24,7 @@ namespace Discord_Hex_Bot.game
             this.steps = 0;
             for (int i = 0; i < Settings.MAP_HEIGHT * Settings.MAP_WIDTH; i++)
             {
-                this.entities.Add(new entity.Entity(this));
+                this.entities.Add(new Entity(this));
             }
             foreach (UserInfo info in userInfos)
             {
@@ -32,7 +32,7 @@ namespace Discord_Hex_Bot.game
             }
             foreach (entity.Player player in this.players)
             {
-                int index = player.pos.X * 10 + player.pos.Y;
+                int index = player.pos.getValue();
                 this.entities[index] = player;
             }
             this.BroadcastToAll("Lobby full- game has begun!");
@@ -42,9 +42,9 @@ namespace Discord_Hex_Bot.game
 
         public void Step()
         {
-            foreach (entity.Entity entity in entities)
+            for(int i = 0; i < this.entities.Count; i++)
             {
-                entity.Step();
+                entities[i].Step();
             }
             this.steps++;
             List<ulong> channels = new List<ulong> { };
@@ -80,7 +80,7 @@ namespace Discord_Hex_Bot.game
 
         public void Spawn(entity.Entity entity)
         {
-            int index = entity.pos.X * 10 + entity.pos.Y;
+            int index = entity.pos.getValue();
             this.entities[index] = entity;
         }
 
@@ -129,6 +129,8 @@ namespace Discord_Hex_Bot.game
             foreach (Entity entity in this.entities)
             {
                 charBuf.Append(entity.glyph);
+                // debug
+                // charBuf.Append((this.entities.IndexOf(entity) & 10).ToString()[0]);
             }
             string all = charBuf.ToString();
             string[] strs = new string[Settings.MAP_HEIGHT];
@@ -141,11 +143,11 @@ namespace Discord_Hex_Bot.game
 
         public Entity GetEntity(Position position)
         {
-            if (position.X < 0 || position.Y < 0)
+            if (position.X < 0 || position.Y < 0 || position.X > Settings.MAP_WIDTH || position.Y > Settings.MAP_HEIGHT)
             {
                 return new Rock(this, position);
             }
-            return this.entities[position.value];
+            return this.entities[position.getValue()];
         }
 
         public bool IsClear(Position position)

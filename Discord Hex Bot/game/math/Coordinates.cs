@@ -5,13 +5,15 @@ namespace Discord_Hex_Bot.game.math
     public class Position :IComparable
 
     {
-        public int value;
+        public int getValue()
+        {
+            return Settings.MAP_WIDTH * this.Y + this.X;
+        }
         public int X { get; set; }
         public int Y { get; set; }
 
         public Position(int x, int y)
         {
-            this.value = (x * 10) + y;
             this.X = x;
             this.Y = y;
         }
@@ -79,7 +81,7 @@ namespace Discord_Hex_Bot.game.math
             Position other = obj as Position;
             if (other != null)
             {
-                return this.value.CompareTo(other.value);
+                return this.getValue().CompareTo(other.getValue());
             }
             else
                 throw new ArgumentException("Object is not a Position");

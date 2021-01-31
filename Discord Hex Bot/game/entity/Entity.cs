@@ -37,11 +37,9 @@ namespace Discord_Hex_Bot.game.entity
 
         public virtual bool Move(Direction direction)
         {
-            int index = this.pos.X * 10 + this.pos.Y;
-            this.game.entities[index] = new Entity(this.game);
+            this.game.entities[this.pos.getValue()] = new Entity(this.game);
             this.pos = this.pos.offset(direction);
-            int newIndex = this.pos.X * 10 + this.pos.Y;
-            this.game.entities[newIndex] = this;
+            this.game.entities[this.pos.getValue()] = this;
             return true;
         }
 

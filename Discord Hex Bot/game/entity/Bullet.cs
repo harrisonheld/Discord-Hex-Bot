@@ -17,12 +17,13 @@
         public math.Direction direction;
         public override void Step()
         {
-            this.pos = this.pos.offset(this.direction);
             if(!this.game.IsClear(this.pos))
             {
                 if(this.game.GetEntity(this.pos) is Player)
                 this.Remove();
+                this.game.GetEntity(this.pos).Remove();
             }
+            this.Move(direction);
         }
     }
 }
