@@ -60,6 +60,9 @@ namespace Discord_Hex_Bot.game
             this.steps++;
             List<ulong> channels = new List<ulong> { };
             List<UserInfo> infoList = new List<UserInfo> { };
+
+            RenderMapToAll();
+
             foreach (Player player in this.players)
             {
                 if (!channels.Contains(player.Info.ChannelId))
@@ -67,11 +70,9 @@ namespace Discord_Hex_Bot.game
                     infoList.Add(player.Info);
                     channels.Add(player.Info.ChannelId);
                 }
+                player.Info.ShootingThisTurn = false;
                 player.turn = false;
             }
-
-            RenderMapToAll();
-            player.Info.ShootingThisTurn = false;
 
             this.players[this.steps % this.players.Count].turn = true;
         }

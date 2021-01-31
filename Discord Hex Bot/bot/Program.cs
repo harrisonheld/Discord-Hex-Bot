@@ -104,6 +104,8 @@ namespace Discord_Hex_Bot
             Console.WriteLine("shooting this turn: " + info.ShootingThisTurn);
             Console.WriteLine(args[0] + " " + args[1]);
 
+            info.ShootingThisTurn = false;
+
             return Task.CompletedTask;
         }
 
