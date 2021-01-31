@@ -164,7 +164,7 @@ namespace Discord_Hex_Bot
 
             return Task.CompletedTask;
         }
-        public static Task ShowRenderToUser(UserInfo info, string text)
+        public static Task ShowRenderToUser(UserInfo info, string[] mapLines)
         {
             ulong channelId = info.ChannelId;
 
