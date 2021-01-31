@@ -51,18 +51,14 @@ namespace Discord_Hex_Bot.game
             }
         }
 
-        public void HandleInput(string[] args, UserInfo sender)
+        public void handleCommand(string[] args, UserInfo sender)
         {
             entity.Player player = this.getPlayerFromInfo(sender);
-            // log the args
-            for(int i = 0; i < args.Length; i++)
-            {
-                Console.WriteLine($"{i}: {args[i]}");
-            }
 
-            if(entities.Contains(player))
+            if(this.entities.Contains(player))
             {
-
+                Console.WriteLine("poggy");
+                io.HandleInput.handleInput(player.Info, args);
             }
         }
 
