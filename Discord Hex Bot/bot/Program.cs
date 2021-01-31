@@ -154,31 +154,49 @@ namespace Discord_Hex_Bot
             return Task.CompletedTask;
         }
 
-        public static Task BroadcastToUser(UserInfo info, string text)
+        public static void BroadcastToUser(UserInfo info, string text)
         {
             ulong channelId = info.ChannelId;
 
             // the following might break if its a dm channel
             ISocketMessageChannel channel = _client.GetChannel(channelId) as ISocketMessageChannel;
             IMessage message = channel.SendMessageAsync(text).Result;
-
-            return Task.CompletedTask;
         }
-        public static Task ShowRenderToUser(UserInfo info, string[] mapLines)
+        public static void ShowRenderToUser(UserInfo info, string[] mapLines)
         {
+            StringBuilder map = new StringBuilder();
+            int width = mapLines[0].Length;
+            int height = mapLines.Length;
+
+            // top bar and corners
+            map.Append("╔");
+            for (int i = 0; i < width; i++)
+                map.Append("═");
+            map.Append("╗");
+            map.Append("\n");
+
+            foreach(string line in mapLines)
+            {
+                map.Append($"║{line}║");
+            }
+
+            // bottom bar and corners
+            map.Append("╚");
+            for (int i = 0; i < width; i++)
+                map.Append("═");
+            map.Append("╝");
+
+            // send the map
             ulong channelId = info.ChannelId;
+            ISocketMessageChannel channel = _client.GetChannel(channelId) as ISocketMessageChannel; // might break if dm channel, idk havent tried it
+            IMessage message = channel.SendMessageAsync(map.ToString()).Result;
 
-            // the following might break if its a dm channel
-            ISocketMessageChannel channel = _client.GetChannel(channelId) as ISocketMessageChannel;
-            IMessage message = channel.SendMessageAsync(text).Result;
-
+            // attach emojis
             foreach (string emojiString in Settings.EMOJI_STRINGS)
             {
                 Emoji emoji = new Emoji(emojiString);
                 message.AddReactionAsync(emoji);
             }
-
-            return Task.CompletedTask;
         }
 
         public static string UserIdToUsername(ulong userId)
