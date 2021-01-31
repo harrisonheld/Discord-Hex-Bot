@@ -162,7 +162,17 @@ namespace Discord_Hex_Bot
             ISocketMessageChannel channel = _client.GetChannel(channelId) as ISocketMessageChannel;
             IMessage message = channel.SendMessageAsync(text).Result;
 
-            foreach(string emojiString in Settings.EMOJI_STRINGS)
+            return Task.CompletedTask;
+        }
+        public static Task ShowRenderToUser(UserInfo info, string text)
+        {
+            ulong channelId = info.ChannelId;
+
+            // the following might break if its a dm channel
+            ISocketMessageChannel channel = _client.GetChannel(channelId) as ISocketMessageChannel;
+            IMessage message = channel.SendMessageAsync(text).Result;
+
+            foreach (string emojiString in Settings.EMOJI_STRINGS)
             {
                 Emoji emoji = new Emoji(emojiString);
                 message.AddReactionAsync(emoji);
@@ -170,6 +180,7 @@ namespace Discord_Hex_Bot
 
             return Task.CompletedTask;
         }
+
         public static string UserIdToUsername(ulong userId)
         {
             return _client.GetUser(userId).Username;

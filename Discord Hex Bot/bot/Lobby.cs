@@ -33,11 +33,14 @@ namespace Discord_Hex_Bot
 
         public void StartGame()
         {
-            status = LobbyStatus.InGame;
             instance = new GameInstance(users);
+            status = LobbyStatus.InGame;
         }
         public void SuspendGame()
         {
+            if (instance == null)
+                return;
+
             status = LobbyStatus.Waiting;
         }
 
@@ -55,7 +58,11 @@ namespace Discord_Hex_Bot
             int idx = UserIdToIdx(id);
             if (idx >= 0)
             {
-                instance.getPlayerFromInfo(users[idx]).Remove();
+                if(instance != null) // if game has been created yet
+                {
+                    instance.getPlayerFromInfo(users[idx]).Remove();
+                }
+
                 users.RemoveAt(idx);
 
                 if (users.Count < Settings.MAX_PLAYERS)
