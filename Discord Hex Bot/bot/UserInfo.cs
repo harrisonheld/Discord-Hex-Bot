@@ -12,10 +12,6 @@ namespace Discord_Hex_Bot
 
         public ulong ReactMessageId { get; set; }
 
-        public void setReactMessageID(ulong id)
-        {
-            this.ReactMessageId = id;
-        }
         public UserInfo(ulong _userId, ulong _channelId, ulong _guildId)
         {
             UserId = _userId;

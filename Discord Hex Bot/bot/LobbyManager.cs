@@ -31,7 +31,6 @@ namespace Discord_Hex_Bot
             // if no lobbies were waiting for another player
             Lobby newLobby = CreateNewLobby();
             newLobby.AddPlayer(info);
-            Debug.WriteLine("Created a new lobby.");
 
             return newLobby;
         }
