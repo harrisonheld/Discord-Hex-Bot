@@ -26,10 +26,10 @@ namespace Discord_Hex_Bot.game
                 this.entities.Add(player);
             }
             this.board = new render.Board(this);
-            this.BroadcastToAll("pingaz");
+            this.BroadcastToAll("PINGAZ YEEEAH BOY");
         }
 
-        public void run()
+        public void Run()
         {
             foreach(entity.Player player in this.players)
             {
