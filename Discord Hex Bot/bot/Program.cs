@@ -142,6 +142,7 @@ namespace Discord_Hex_Bot
                 if (lobby.Status != LobbyStatus.InGame)
                 {
                     message.Channel.SendMessageAsync("You cannot make inputs at this time. The lobby's game hasn't started yet.");
+                    return Task.CompletedTask;
                 }
 
                 // make args list
