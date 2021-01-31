@@ -128,6 +128,20 @@ namespace Discord_Hex_Bot
 
         public EmbedBuilder LobbyInfoEmbed()
         {
+            StringBuilder usernamesString = new StringBuilder();
+            for(int i = 0; i < users.Count; i++)
+            {
+                // add the username to the string
+                string username = Program.UserIdToUsername(users[i].UserId);
+                usernamesString.Append(username);
+
+                // add a comma after every username except the last one
+                if (i != users.Count - 1)
+                    usernamesString.Append(", ");
+            }
+            // append user count
+            usernamesString.Append($" **[{users.Count} / {Settings.MAX_PLAYERS}]**");
+
             return new EmbedBuilder()
             {
                 Title = name,
@@ -136,14 +150,14 @@ namespace Discord_Hex_Bot
                     {
                         new EmbedFieldBuilder()
                         {
-                            Name = "Users: ",
-                            Value = $"[{users.Count} / {Settings.MAX_PLAYERS}]",
+                            Name = "Status:",
+                            Value = status,
                             IsInline = true
                         },
                         new EmbedFieldBuilder()
                         {
-                            Name = "Status:",
-                            Value = status,
+                            Name = "Users:",
+                            Value = usernamesString.ToString(),
                             IsInline = true
                         }
                     },

@@ -190,11 +190,10 @@ namespace Discord_Hex_Bot
             int height = mapLines.Length;
 
             // opening tick marks
-            map.Append("```");
+            map.Append("```fix\n"); // use "fix" to make the text orange
             // top bar and corners
             map.Append("╔");
-            for (int i = 0; i < width; i++)
-                map.Append("═");
+            map.Append('═', width);
             map.Append("╗");
             map.Append("\n");
 
@@ -206,8 +205,7 @@ namespace Discord_Hex_Bot
 
             // bottom bar and corners
             map.Append("╚");
-            for (int i = 0; i < width; i++)
-                map.Append("═");
+            map.Append('═', width);
             map.Append("╝");
             // closing tick marks
             map.Append("```");
