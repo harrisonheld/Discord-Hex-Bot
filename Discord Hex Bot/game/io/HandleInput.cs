@@ -14,6 +14,7 @@ namespace Discord_Hex_Bot.game.io
         public static void handleInput(entity.Player player, String[] command)
         {
             GameInstance gameInstance = GameInstance.INSTANCE;
+            Console.WriteLine("Pingerz");
             if (!player.turn)
             {
                 Program.BroadcastToUser(player.Info, "You have already moved!");
