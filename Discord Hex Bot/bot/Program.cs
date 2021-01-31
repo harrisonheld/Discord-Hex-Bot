@@ -39,6 +39,16 @@ namespace Discord_Hex_Bot
             await _client.LoginAsync(TokenType.Bot, token);
             await _client.StartAsync();
 
+            while(true)
+            {
+                string input = Console.ReadLine();
+                if(input == "ReactMessageId test")
+                {
+                    ulong reactMessageId = LobbyManager.lobbies[0].GetUserInfoById(741448086701867060).ReactMessageId;
+                    Console.WriteLine(reactMessageId);
+                }
+            }
+
             // Block this task until the program is closed.
             await Task.Delay(-1);
         }
