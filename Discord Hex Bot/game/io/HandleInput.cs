@@ -36,7 +36,7 @@ namespace Discord_Hex_Bot.game.io
                             player.Move(Direction.East);
                             break;
                         default:
-                            Program.BroadcastToUser(userInfo, "Invalid Command");
+                            Program.BroadcastToUser(player.Info, "Invalid Command");
                             break;
                     }
                     break;
