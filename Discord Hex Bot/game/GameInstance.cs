@@ -63,7 +63,7 @@ namespace Discord_Hex_Bot.game
 
             foreach (entity.Player player1 in this.players)
             {
-                if (player.Info.UserId.Equals(sender.UserId))
+                if (player1.Info.UserId.Equals(sender.UserId))
                 {
                     Console.WriteLine("poggy");
                     io.HandleInput.handleInput(player.Info, args);
