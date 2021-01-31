@@ -90,13 +90,13 @@ namespace Discord_Hex_Bot
                     ulong joinedFromGuildId = p.Info.GuildId;
                     ulong joinedFromChannelId = p.Info.ChannelId;
 
-                    string joinedFromGuildName = _client.GetGuild(guildId).Name;
-                    string joinedFromChannelName = (_client.GetChannel(channelId) as IMessageChannel).Name;
+                    string joinedFromGuildName = _client.GetGuild(joinedFromGuildId).Name;
+                    string joinedFromChannelName = (_client.GetChannel(joinedFromChannelId) as IMessageChannel).Name;
 
                     EmbedBuilder eb = lobby.LobbyInfoEmbed();
 
                     message.Channel.SendMessageAsync($"You are already in a lobby! You joined it from " +
-                        $"the channel #{joinedFromChannelName} in the server {joinedFromGuildName}\n" +
+                        $"the channel #{joinedFromChannelName} in the server {joinedFromGuildName}.\n" +
                         $"Use hex.leavelobby to close that session if you want to start a new one here.", false, eb.Build());
                 }
                 else
@@ -168,6 +168,10 @@ namespace Discord_Hex_Bot
             channel.SendMessageAsync(text);
 
             return Task.CompletedTask;
+        }
+        public static string UserIdToUsername(ulong userId)
+        {
+            return _client.GetUser(userId).Username;
         }
     }
 }
