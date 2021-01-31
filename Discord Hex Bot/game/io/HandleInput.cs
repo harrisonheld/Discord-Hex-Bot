@@ -73,7 +73,7 @@ namespace Discord_Hex_Bot.game.io
                         break;
                 }
             }
-            player.board.game.Step();
+            player.game.Step();
         }
     }
 }
