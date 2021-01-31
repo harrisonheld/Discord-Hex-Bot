@@ -12,7 +12,7 @@ namespace Discord_Hex_Bot
 
         public const string CSV_DELIMITER = ",";
 
-        public const int PLAYER_COUNT = 1; // how many players are needed to play
+        public const int PLAYER_COUNT = 2; // how many players are needed to play
 
         public static char[] GROUND_GLYPHS = new char[] { '.' };
         public static char[] ROCK_GLYPHS = new char[] { 'O' };

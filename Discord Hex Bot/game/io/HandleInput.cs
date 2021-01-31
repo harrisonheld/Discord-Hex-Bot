@@ -27,16 +27,16 @@ namespace Discord_Hex_Bot.game.io
                         switch (command[1])
                         {
                             case "up":
-                                player.Move(EmojiWord.North);
+                                player.Move(Direction.North);
                                 break;
                             case "down":
-                                player.Move(EmojiWord.South);
+                                player.Move(Direction.South);
                                 break;
                             case "left":
-                                player.Move(EmojiWord.West);
+                                player.Move(Direction.West);
                                 break;
                             case "right":
-                                player.Move(EmojiWord.East);
+                                player.Move(Direction.East);
                                 break;
                             default:
                                 Program.BroadcastToUser(player.Info, "Invalid Command!");
@@ -47,16 +47,16 @@ namespace Discord_Hex_Bot.game.io
                         switch (command[1])
                         {
                             case "up":
-                                player.Shoot(EmojiWord.North);
+                                player.Shoot(Direction.North);
                                 break;
                             case "down":
-                                player.Shoot(EmojiWord.South);
+                                player.Shoot(Direction.South);
                                 break;
                             case "left":
-                                player.Shoot(EmojiWord.West);
+                                player.Shoot(Direction.West);
                                 break;
                             case "right":
-                                player.Shoot(EmojiWord.East);
+                                player.Shoot(Direction.East);
                                 break;
                             default:
                                 Program.BroadcastToUser(player.Info, "Invalid Command!");
