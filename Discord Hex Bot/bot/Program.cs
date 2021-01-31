@@ -165,7 +165,7 @@ namespace Discord_Hex_Bot
                 string[] lines = new string[18];
                 for(int i = 0; i < lines.Length; i++)
                 {
-                    lines[i] = "abcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabc123456789012345";
+                    lines[i] = "abcabcabcabcabcabcabcabcapoopchugabcabcabcabcabcabcabcabcabcabcabcabcabcabc123456789012345";
                 }
 
                 message.Channel.SendMessageAsync("This is a 90*18 map.");
