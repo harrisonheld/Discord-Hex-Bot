@@ -10,12 +10,15 @@ namespace Discord_Hex_Bot.game
         public List<entity.Entity> entities = new List<entity.Entity> { };
         public List<entity.Player> players = new List<entity.Player> { };
         public Random random;
+        public bool active;
+        public int steps;
 
         public render.Board board;
 
         public GameInstance(List<UserInfo> userInfos)
         {
             this.random = new Random();
+            this.active = true;
             INSTANCE = this;
             foreach(UserInfo info in userInfos)
             {
@@ -27,13 +30,24 @@ namespace Discord_Hex_Bot.game
             }
             this.board = new render.Board(this);
             this.BroadcastToAll("PINGAZ YEEEAH BOY");
+            this.steps = 0;
+            this.players[this.steps % this.players.Count].turn = true;
         }
 
-        public void Run()
+        public void Step()
         {
-            foreach(entity.Player player in this.players)
-            {
+            this.players[this.steps % this.players.Count].turn = true;
 
+            foreach (entity.Entity entity in entities)
+            {
+                entity.Step();
+            }
+            this.steps++;
+
+            foreach (entity.Player player in this.players)
+            {
+                Program.ShowRenderToUser(player.Info, this.board.GetMap());
+                player.turn = false;
             }
         }
 
@@ -55,14 +69,6 @@ namespace Discord_Hex_Bot.game
         public void Spawn(entity.Entity entity)
         {
             this.entities.Add(entity);
-        }
-
-        public void Step()
-        {
-            foreach (entity.Entity entity in entities)
-            {
-                entity.Step();
-            }
         }
 
         public void BroadcastToAll(String message)
@@ -88,6 +94,7 @@ namespace Discord_Hex_Bot.game
         {
             string name = Program.UserIdToUsername(leaver.Info.UserId);
             this.BroadcastToAll(name);
+            this.active = false;
         }
 
         public entity.Player getPlayerFromInfo(UserInfo info)
