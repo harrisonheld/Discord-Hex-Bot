@@ -102,7 +102,7 @@ namespace Discord_Hex_Bot
                     string joinedFromGuildName = _client.GetGuild(joinedFromGuildId).Name;
                     string joinedFromChannelName = (_client.GetChannel(joinedFromChannelId) as IMessageChannel).Name;
 
-                    EmbedBuilder eb = lobby.LobbyInfoEmbed();
+                    EmbedBuilder eb = lobby.LobbyInfoEmbed(info);
 
                     message.Channel.SendMessageAsync($"You are already in a lobby! You joined it from " +
                         $"the channel #{joinedFromChannelName} in the server {joinedFromGuildName}.\n" +
@@ -112,7 +112,7 @@ namespace Discord_Hex_Bot
                 {
                     // assign the player to a new lobby
                     Lobby lobby = LobbyManager.AssignPlayerToLobby(info);
-                    EmbedBuilder eb = lobby.LobbyInfoEmbed();
+                    EmbedBuilder eb = lobby.LobbyInfoEmbed(info);
                     message.Channel.SendMessageAsync("Joined a lobby!", false, eb.Build());
                 }
             }
@@ -130,11 +130,21 @@ namespace Discord_Hex_Bot
             }
             else if (command.Equals("input"))
             {
+                // if the player isnt in a lobby
                 if(!LobbyManager.ContainsPlayerWithId(authorId))
                 {
                     message.Channel.SendMessageAsync("You aren't in a lobby!");
                     return Task.CompletedTask;
                 }
+
+                // if the player is in a lobby whos game hasnt started
+                Lobby lobby = LobbyManager.GetLobbyContainingPlayerId(info.UserId);
+                if (lobby.Status != LobbyStatus.InGame)
+                {
+                    message.Channel.SendMessageAsync("You cannot make inputs at this time. The lobby's game hasn't started yet.");
+                    return Task.CompletedTask;
+                }
+
                 // make args list
                 // remove first word, which is hex.input
                 string[] parts = message.Content.Split(" ");
@@ -155,7 +165,7 @@ namespace Discord_Hex_Bot
                 string[] lines = new string[18];
                 for(int i = 0; i < lines.Length; i++)
                 {
-                    lines[i] = "abcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabc123456789012345";
+                    lines[i] = "abcabcabcabcabcabcabcabcapoopchugabcabcabcabcabcabcabcabcabcabcabcabcabcabc123456789012345";
                 }
 
                 message.Channel.SendMessageAsync("This is a 90*18 map.");
@@ -177,14 +187,12 @@ namespace Discord_Hex_Bot
         {
             StringBuilder map = new StringBuilder();
             int width = mapLines[0].Length;
-            int height = mapLines.Length;
 
             // opening tick marks
-            map.Append("```");
+            map.Append("```fix\n"); // use "fix" to make the text orange
             // top bar and corners
             map.Append("╔");
-            for (int i = 0; i < width; i++)
-                map.Append("═");
+            map.Append('═', width);
             map.Append("╗");
             map.Append("\n");
 
@@ -196,8 +204,7 @@ namespace Discord_Hex_Bot
 
             // bottom bar and corners
             map.Append("╚");
-            for (int i = 0; i < width; i++)
-                map.Append("═");
+            map.Append('═', width);
             map.Append("╝");
             // closing tick marks
             map.Append("```");
@@ -215,6 +222,10 @@ namespace Discord_Hex_Bot
             }
         }
 
+        public static string UserIdToMention(ulong userId)
+        {
+            return _client.GetUser(userId).Mention;
+        }
         public static string UserIdToUsername(ulong userId)
         {
             return _client.GetUser(userId).Username;

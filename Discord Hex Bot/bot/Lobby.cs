@@ -11,6 +11,7 @@ namespace Discord_Hex_Bot
 {
     class Lobby
     {
+        private string name;
         private List<UserInfo> users = new List<UserInfo>();
         private List<UserInfo> Users
         { 
@@ -29,6 +30,11 @@ namespace Discord_Hex_Bot
             {
                 return status;
             }
+        }
+
+        public Lobby(string _name)
+        {
+            name = _name;
         }
 
         public void StartGame()
@@ -120,24 +126,40 @@ namespace Discord_Hex_Bot
             instance.handleCommand(args, GetUserInfoById(userId));
         }
 
-        public EmbedBuilder LobbyInfoEmbed()
+        public EmbedBuilder LobbyInfoEmbed(UserInfo whoIsEmbedFor)
         {
+            StringBuilder usernamesString = new StringBuilder();
+            for(int i = 0; i < users.Count; i++)
+            {
+                // add the username to the string
+                string username = Program.UserIdToUsername(users[i].UserId);
+                usernamesString.Append(username);
+
+                // add a comma after every username except the last one
+                if (i != users.Count - 1)
+                    usernamesString.Append(", ");
+            }
+            // append user count
+            usernamesString.Append($" **[{users.Count} / {Settings.MAX_PLAYERS}]**");
+
+            string mentionOfWhoEmbedIsFor = Program.UserIdToMention(whoIsEmbedFor.UserId);
+
             return new EmbedBuilder()
             {
-                Title = "Lobby",
-                Description = "Here's some stats:",
+                Title = name,
+                Description = $"You're in this lobby, {mentionOfWhoEmbedIsFor}.",
                 Fields = new List<EmbedFieldBuilder>()
                     {
                         new EmbedFieldBuilder()
                         {
-                            Name = "Users: ",
-                            Value = $"[{users.Count} / {Settings.MAX_PLAYERS}]",
+                            Name = "Status:",
+                            Value = status,
                             IsInline = true
                         },
                         new EmbedFieldBuilder()
                         {
-                            Name = "Status:",
-                            Value = status,
+                            Name = "Users:",
+                            Value = usernamesString.ToString(),
                             IsInline = true
                         }
                     },
