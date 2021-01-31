@@ -23,6 +23,8 @@ namespace Discord_Hex_Bot
 
         private static DiscordSocketClient _client;
 
+        public static Random rand = new Random();
+
         public static async Task MainAsync()
         {
             prefixLength = PREFIX.Length;
@@ -222,6 +224,7 @@ namespace Discord_Hex_Bot
             }
         }
 
+        // helper functions
         public static string UserIdToMention(ulong userId)
         {
             return _client.GetUser(userId).Mention;
