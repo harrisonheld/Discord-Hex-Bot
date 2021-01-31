@@ -36,7 +36,7 @@ namespace Discord_Hex_Bot
         }
         private static Lobby CreateNewLobby()
         {
-            Lobby newLobby = new Lobby("HOPPY LOPPY");
+            Lobby newLobby = new Lobby("Hoppy Lobby");
             lobbies.Add(newLobby);
             return newLobby;
         }

@@ -90,6 +90,7 @@ namespace Discord_Hex_Bot
 
                 case EmojiWord.Bow:
                     info.ShootingThisTurn = true;
+                    return Task.CompletedTask;
                     break;
             }
 

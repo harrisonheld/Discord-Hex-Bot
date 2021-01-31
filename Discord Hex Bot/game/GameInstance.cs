@@ -129,9 +129,9 @@ namespace Discord_Hex_Bot.game
 
         public void End(entity.Player leaver)
         {
-            string name = Program.UserIdToUsername(leaver.Info.UserId);
-            string message = "The game is over! " + name + " was shot down!";
-            this.BroadcastToAll(name);
+            string mention = Program.UserIdToMention(leaver.Info.UserId);
+            string message = "The game is over! " + mention + " was shot down!";
+            this.BroadcastToAll(mention + " left the game.");
             this.active = false;
             Program.EndGame(this, leaver.Info);
         }
@@ -145,7 +145,7 @@ namespace Discord_Hex_Bot.game
                     return player;
                 }
             }
-            this.BroadcastToAll("No player found!");
+            Console.WriteLine("No player was found in GameInstance.getPlayerFromInfo().");
             return new entity.Player(this, new math.Position(-1, -1), info);
         }
 
