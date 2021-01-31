@@ -45,12 +45,6 @@ namespace Discord_Hex_Bot.game
         public void Spawn(entity.Entity entity)
         {
             this.entities.Add(entity);
-            this.Redraw();
-        }
-
-        private void Redraw()
-        {
-            throw new NotImplementedException();
         }
 
         public void Step()
@@ -78,6 +72,11 @@ namespace Discord_Hex_Bot.game
             {
                 Program.BroadcastToUser(info, message);
             }
+        }
+
+        internal void End(entity.Player leaver)
+        {
+            this.BroadcastToAll(leaver.Info.UserId.ToString());
         }
     }
 }
