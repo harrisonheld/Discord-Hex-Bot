@@ -138,34 +138,18 @@ namespace Discord_Hex_Bot
                 LobbyManager.AcceptCommandFromId(args, authorId);
             }
 
-            else if (command.Equals("unicodetest"))
-            {
-                StringBuilder sb = new StringBuilder();
-                int start = int.Parse(message.Content.Split(" ")[1]);
-                int end = start + 900;
-                message.Channel.SendMessageAsync($"Printing chars {start}-{end}");
-
-                for(int i = start; i < end; i++)
-                {
-                    sb.Append(Convert.ToChar(i) + " ");
-
-                    if (i % 20 == 0)
-                        sb.Append("\n");
-                }
-
-                message.Channel.SendMessageAsync(sb.ToString());
-            }
-
             return Task.CompletedTask;
         }
 
-        public static Task BroadcastToUser(UserInfo info, string text)
+        public static Task BroadcastToUser(ref UserInfo info, string text)
         {
             ulong channelId = info.ChannelId;
 
             // the following might break if its a dm channel
             ISocketMessageChannel channel = _client.GetChannel(channelId) as ISocketMessageChannel;
-            channel.SendMessageAsync(text);
+            ulong messageId = channel.SendMessageAsync(text).Result.Id;
+            info.ReactMessageId = messageId;
+            Console.WriteLine(messageId);
 
             return Task.CompletedTask;
         }

@@ -10,11 +10,15 @@ namespace Discord_Hex_Bot
         public ulong ChannelId { get; set; }
         public ulong GuildId { get; set; }
 
+        public ulong ReactMessageId { get; set; }
+
         public UserInfo(ulong _userId, ulong _channelId, ulong _guildId)
         {
             UserId = _userId;
             ChannelId = _channelId;
             GuildId = _guildId;
+
+            ReactMessageId = 0;
         }
     }
 }
