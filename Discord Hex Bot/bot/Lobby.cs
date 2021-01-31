@@ -66,7 +66,7 @@ namespace Discord_Hex_Bot
             int idx = UserIdToIdx(id);
             if (idx >= 0)
             {
-                if(instance != null) // if game has been created yet
+                if(instance != null) // if game has been created, suspend it and remove the player from it
                 {
                     if (users.Count < Settings.MAX_PLAYERS)
                         SuspendGame(users[idx]);
@@ -88,7 +88,8 @@ namespace Discord_Hex_Bot
                     return u;
             }
 
-            Console.WriteLine($"Could not get user with id {userId}. This may cause errors.");
+            Console.Write($"Could not get user with id {userId}. This may cause errors. " +
+                $"(If you're seeing this, something is wrong - Harrison)");
             // just yolo it and return an empty user info
             return new UserInfo(0, 0, 0);
         }
@@ -124,7 +125,6 @@ namespace Discord_Hex_Bot
         /// <param name="id"></param>
         public void HandleInput(string[] args, ulong userId)
         {
-            Console.WriteLine("Lobby is doing Handle Input");
             instance.handleCommand(args, GetUserInfoById(userId));
         }
 
@@ -156,20 +156,20 @@ namespace Discord_Hex_Bot
                 Title = name,
                 Description = $"You're in this lobby, {mentionOfWhoEmbedIsFor}.",
                 Fields = new List<EmbedFieldBuilder>()
-            {
-                new EmbedFieldBuilder()
                 {
-                    Name = "Status:",
-                    Value = status,
-                    IsInline = true
+                    new EmbedFieldBuilder()
+                    {
+                        Name = "Status:",
+                        Value = status,
+                        IsInline = true
+                    },
+                    new EmbedFieldBuilder()
+                    {
+                        Name = "Users:",
+                        Value = usernamesString.ToString(),
+                        IsInline = true
+                    }
                 },
-                new EmbedFieldBuilder()
-                {
-                    Name = "Users:",
-                    Value = usernamesString.ToString(),
-                    IsInline = true
-                }
-            },
                 Footer = new EmbedFooterBuilder()
                 {
                     IconUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Hexagon.svg/693px-Hexagon.svg.png",

@@ -10,14 +10,18 @@ namespace Discord_Hex_Bot.game
     {
         public static GameInstance INSTANCE;
 
+        private List<UserInfo> infosFromLobby;
+
         public List<entity.Entity> entities = new List<entity.Entity> { };
         public List<entity.Player> players = new List<entity.Player> { };
         public Random random;
         public bool active;
         public int steps;
 
-        public GameInstance(ref List<UserInfo> userInfos)
+        public GameInstance(ref List<UserInfo> infosFromLobby)
         {
+            this.infosFromLobby = infosFromLobby;
+
             INSTANCE = this;
             this.random = new Random();
             this.active = true;
@@ -26,7 +30,7 @@ namespace Discord_Hex_Bot.game
             {
                 this.entities.Add(new Entity(this));
             }
-            foreach (UserInfo info in userInfos)
+            foreach (UserInfo info in infosFromLobby)
             {
                 this.players.Add(new entity.Player(this, new math.Position(this.random.Next(Settings.MAP_WIDTH), this.random.Next(Settings.MAP_HEIGHT)), info));
             }
@@ -58,11 +62,10 @@ namespace Discord_Hex_Bot.game
                 }
                 player.turn = false;
             }
-            for(int i = 0; i < infoList.Count; i++)
-            {
-                UserInfo editedInfo = infoList[i];
-                editedInfo.ReactMessageId = (Program.ShowRenderToUser(editedInfo, this.GetMap()));
-                infoList[i] = editedInfo;
+            for (int i = 0; i < infosFromLobby.Count; i++) {
+                UserInfo editedInfo = infosFromLobby[i];
+                editedInfo.ReactMessageId = (Program.ShowRenderToUser(infosFromLobby[i], this.GetMap()));
+                infosFromLobby[i] = editedInfo;
             }
 
             this.players[this.steps % this.players.Count].turn = true;
