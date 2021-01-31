@@ -21,10 +21,10 @@ namespace Discord_Hex_Bot.game.entity
         {
             this.turn = false;
             this.userInfo = info;
-            this.pos = new math.Position(0, 0);
             this.dirty = true;
             this.layer = RenderLayer.Main;
             this.board = game.board;
+            this.glyph = Settings.PLAYER_GLYPHS[this.game.random.Next(Settings.PLAYER_GLYPHS.Length)];
 
             // check if this id is already in the accounts list
             string[] lines = File.ReadAllLines(Settings.PLAYERS_PATH);
