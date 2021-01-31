@@ -24,6 +24,7 @@ namespace Discord_Hex_Bot.game.entity
             this.pos = new math.Position(0, 0);
             this.dirty = true;
             this.layer = RenderLayer.Main;
+            this.board = game.board;
 
             // check if this id is already in the accounts list
             string[] lines = File.ReadAllLines(Settings.PLAYERS_PATH);

@@ -18,19 +18,25 @@ namespace Discord_Hex_Bot.game
         public GameInstance(List<UserInfo> userInfos)
         {
             this.random = new Random();
+
             this.active = true;
             INSTANCE = this;
-            foreach(UserInfo info in userInfos)
+            this.steps = 0;
+            for (int i = 0; i < Settings.MAP_HEIGHT * Settings.MAP_WIDTH; i++)
+            {
+                this.entities.Add(new entity.Entity(this));
+            }
+            foreach (UserInfo info in userInfos)
             {
                 this.players.Add(new entity.Player(this, new math.Position(this.random.Next(Settings.MAP_WIDTH), this.random.Next(Settings.MAP_HEIGHT)), info));
             }
-            foreach (entity.Player player in entities)
+            foreach (entity.Player player in this.players)
             {
                 this.entities.Add(player);
             }
-            this.board = new render.Board(this);
+            this.board = new render.Board(this);    
             this.BroadcastToAll("PINGAZ YEEEAH BOY");
-            this.steps = 0;
+
             this.players[this.steps % this.players.Count].turn = true;
         }
 

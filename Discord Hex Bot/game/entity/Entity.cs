@@ -16,6 +16,7 @@ namespace Discord_Hex_Bot.game.entity
         public Board board;
         public char glyph;
         public int id;
+        public GameInstance game;
 
 
         public Entity(GameInstance game)
@@ -26,6 +27,7 @@ namespace Discord_Hex_Bot.game.entity
             this.board = game.board;
             this.layer = RenderLayer.Background;
             this.glyph = Settings.GROUND_GLYPHS[0];
+            this.game = game;
         }
         private Entity(Position _position, RenderLayer _renderLayer, Board _board)
         {
