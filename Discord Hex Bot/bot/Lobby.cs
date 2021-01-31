@@ -50,8 +50,9 @@ namespace Discord_Hex_Bot
         public bool RemovePlayerById(ulong id)
         {
             int idx = UserIdToIdx(id);
-            if (idx > 0)
+            if (idx >= 0)
             {
+                instance.RemovePlayer(players[idx]);
                 players.RemoveAt(idx);
 
                 if (players.Count < Settings.MAX_PLAYERS)
