@@ -5,3 +5,4 @@ Hexagons are the only regular polygon that can be subdivided into another regula
 Hexagons are the unique regular polygon such that the distance between the center and each vertex is equal to the length of each side.
 Hexagons are the first polygons—when ascending by number of sides—that do not form the faces of a regular convex polyhedron in Euclidean space. 
 Hexagons are third-order permutohedra, meaning each vertex of a hexagon can be described with Cartesian coordinates using one of six permutations of the numbers 1, 2, and 3.
+The largest hexagons in the Solar System are the giant blue ones on Saturn's poles.
