@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 using Discord_Hex_Bot.game;
 using Discord_Hex_Bot.game.entity;
@@ -144,26 +145,35 @@ namespace Discord_Hex_Bot
 
             string mentionOfWhoEmbedIsFor = Program.UserIdToMention(whoIsEmbedFor.UserId);
 
+            // get a fun fact about hexagons
+            string[] splashLines = File.ReadAllLines(Settings.SPLASH_TEXT_PATH);
+            int splashIdx = Program.rand.Next(0, splashLines.Length);
+            string splashText = splashLines[splashIdx];
+
             return new EmbedBuilder()
             {
                 Title = name,
                 Description = $"You're in this lobby, {mentionOfWhoEmbedIsFor}.",
                 Fields = new List<EmbedFieldBuilder>()
-                    {
-                        new EmbedFieldBuilder()
-                        {
-                            Name = "Status:",
-                            Value = status,
-                            IsInline = true
-                        },
-                        new EmbedFieldBuilder()
-                        {
-                            Name = "Users:",
-                            Value = usernamesString.ToString(),
-                            IsInline = true
-                        }
-                    },
-
+            {
+                new EmbedFieldBuilder()
+                {
+                    Name = "Status:",
+                    Value = status,
+                    IsInline = true
+                },
+                new EmbedFieldBuilder()
+                {
+                    Name = "Users:",
+                    Value = usernamesString.ToString(),
+                    IsInline = true
+                }
+            },
+                Footer = new EmbedFooterBuilder()
+                {
+                    IconUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Hexagon.svg/693px-Hexagon.svg.png",
+                    Text = $"Did you know?\n{splashText}"
+                },
                 Color = Color.Blue
             };
         }

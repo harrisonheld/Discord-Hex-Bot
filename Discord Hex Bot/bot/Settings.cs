@@ -4,6 +4,7 @@
     {
         public const string PLAYERS_PATH = @"./resources/players.csv";
         public const string TOKEN_PATH = @"./resources/token.txt";
+        public const string SPLASH_TEXT_PATH = @"./resources/hexFacts.txt";
 
         public const string CSV_DELIMITER = ",";
 
