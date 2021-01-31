@@ -110,7 +110,7 @@ namespace Discord_Hex_Bot
         /// <param name="id"></param>
         public void AcceptCommandFromId(string[] args, ulong userId)
         {
-            instance.handleInput(args, GetPlayerById(id));
+            instance.HandleInput(args, GetUserInfoById(userId));
         }
 
         public EmbedBuilder LobbyInfoEmbed()
@@ -123,7 +123,7 @@ namespace Discord_Hex_Bot
                     {
                         new EmbedFieldBuilder()
                         {
-                            Name = "Players: ",
+                            Name = "Users: ",
                             Value = $"[{users.Count} / {Settings.MAX_PLAYERS}]",
                             IsInline = true
                         },
@@ -141,7 +141,7 @@ namespace Discord_Hex_Bot
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append($"Players: {users.Count}\n");
+            sb.Append($"Users: {users.Count}\n");
             sb.Append($"Status: {status}\n");
             return sb.ToString();
         }
