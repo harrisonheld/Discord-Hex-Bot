@@ -130,11 +130,20 @@ namespace Discord_Hex_Bot
             }
             else if (command.Equals("input"))
             {
+                // if the player isnt in a lobby
                 if(!LobbyManager.ContainsPlayerWithId(authorId))
                 {
                     message.Channel.SendMessageAsync("You aren't in a lobby!");
                     return Task.CompletedTask;
                 }
+
+                // if the player is in a lobby whos game hasnt started
+                Lobby lobby = LobbyManager.GetLobbyContainingPlayerId(info.UserId);
+                if (lobby.Status != LobbyStatus.InGame)
+                {
+                    message.Channel.SendMessageAsync("You cannot make inputs at this time. The lobby's game hasn't started yet.");
+                }
+
                 // make args list
                 // remove first word, which is hex.input
                 string[] parts = message.Content.Split(" ");

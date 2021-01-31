@@ -11,6 +11,7 @@ namespace Discord_Hex_Bot
 {
     class Lobby
     {
+        private string name;
         private List<UserInfo> users = new List<UserInfo>();
         private List<UserInfo> Users
         { 
@@ -29,6 +30,11 @@ namespace Discord_Hex_Bot
             {
                 return status;
             }
+        }
+
+        public Lobby(string _name)
+        {
+            name = _name;
         }
 
         public void StartGame()
@@ -124,7 +130,7 @@ namespace Discord_Hex_Bot
         {
             return new EmbedBuilder()
             {
-                Title = "Lobby",
+                Title = name,
                 Description = "Here's some stats:",
                 Fields = new List<EmbedFieldBuilder>()
                     {
