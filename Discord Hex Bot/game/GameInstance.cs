@@ -55,10 +55,13 @@ namespace Discord_Hex_Bot.game
         {
             entity.Player player = this.getPlayerFromInfo(sender);
 
-            if(this.entities.Contains(player))
+            foreach (entity.Player player1 in this.players)
             {
-                Console.WriteLine("poggy");
-                io.HandleInput.handleInput(player.Info, args);
+                if (player.Info.UserId.Equals(sender.UserId))
+                {
+                    Console.WriteLine("poggy");
+                    io.HandleInput.handleInput(player.Info, args);
+                }
             }
         }
 
