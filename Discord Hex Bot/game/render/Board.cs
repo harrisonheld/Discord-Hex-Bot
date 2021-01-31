@@ -9,7 +9,13 @@ namespace Discord_Hex_Bot.game.render
         public GameInstance game;
         public Board(GameInstance game)
         {
-
+            for (int i = 0; i < Settings.MAP_HEIGHT; i++)
+            {
+                for (int j = 0; j < Settings.MAP_WIDTH; j++)
+                {
+                    this.tiles.Add(new Position(j, i), Entity.EMPTY);
+                }
+            }
         }
         public static Board INVALID = new Board(GameInstance.INSTANCE);
 
