@@ -70,7 +70,6 @@ namespace Discord_Hex_Bot.game
                     infoList.Add(player.Info);
                     channels.Add(player.Info.ChannelId);
                 }
-                player.Info.ShootingThisTurn = false;
                 player.turn = false;
             }
 
