@@ -29,23 +29,9 @@ namespace Discord_Hex_Bot.game.render
             {
                 return false;
             }
-            return this.GetEntity(position, layer).Equals(Entity.EMPTY);
+            return !this.GetEntity(position, layer).Immovable();
         }
 
-        public string[] GetMap()
-        {
-            StringBuilder charBuf = new StringBuilder();
-            foreach(Entity entity in this.game.entities)
-            {
-                charBuf.Append(entity.glyph);
-            }
-            string all = charBuf.ToString();
-            string[] strs = new string[Settings.MAP_HEIGHT];
-            for (int i = 0; i < Settings.MAP_HEIGHT; i++)
-            { 
-                strs[i] = all.Substring(Settings.MAP_WIDTH * i, Settings.MAP_WIDTH);
-            }
-            return strs;
-        }
+
     }
 }

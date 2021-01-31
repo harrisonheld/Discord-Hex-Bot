@@ -26,7 +26,7 @@ namespace Discord_Hex_Bot.game.entity
             this.dirty = false;
             this.board = game.board;
             this.layer = RenderLayer.Background;
-            this.glyph = Settings.GROUND_GLYPHS[0];
+            this.glyph = Settings.GROUND_GLYPHS[game.random.Next(0, Settings.GROUND_GLYPHS.Length)];
             this.game = game;
         }
         private Entity(Position _position, RenderLayer _renderLayer, Board _board)
@@ -44,21 +44,11 @@ namespace Discord_Hex_Bot.game.entity
 
         public virtual bool Move(Direction direction)
         {
-            switch (direction)
-            {
-                case Direction.North:
-                    pos.Y += 1;
-                    break;
-                case Direction.South:
-                    pos.Y -= 1;
-                    break;
-                case Direction.East:
-                    pos.X -= 1;
-                    break;
-                case Direction.West:
-                    pos.X += 1;
-                    break;
-            }
+            int index = this.pos.X * 10 + this.pos.Y;
+            this.game.entities[index] = new Entity(this.game);
+            this.pos = this.pos.offset(direction);
+            int newIndex = this.pos.X * 10 + this.pos.Y;
+            this.game.entities[newIndex] = this;
             return true;
         }
 
@@ -69,12 +59,12 @@ namespace Discord_Hex_Bot.game.entity
 
         public void Remove()
         {
-            if(this.board.game.entities.Contains(this))
+            if(this.game.entities.Contains(this))
             {
-                this.board.game.entities.Remove(this);
+                this.game.entities.Remove(this);
                 if (this is Player)
                 {
-                    this.board.game.End((Player)this);
+                    this.game.End((Player)this);
                 }
             }
         }

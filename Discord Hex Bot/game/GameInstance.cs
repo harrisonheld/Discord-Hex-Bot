@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Discord_Hex_Bot.game.entity;
+using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Discord_Hex_Bot.game
 {
@@ -17,10 +19,9 @@ namespace Discord_Hex_Bot.game
 
         public GameInstance(List<UserInfo> userInfos)
         {
-            this.random = new Random();
-
-            this.active = true;
             INSTANCE = this;
+            this.random = new Random();
+            this.active = true;
             this.steps = 0;
             for (int i = 0; i < Settings.MAP_HEIGHT * Settings.MAP_WIDTH; i++)
             {
@@ -32,29 +33,37 @@ namespace Discord_Hex_Bot.game
             }
             foreach (entity.Player player in this.players)
             {
-                this.entities.Add(player);
+                int index = player.pos.X * 10 + player.pos.Y;
+                this.entities[index] = player;
             }
             this.board = new render.Board(this);    
-            this.BroadcastToAll("PINGAZ YEEEAH BOY");
+            this.BroadcastToAll("Lobby full- game has begun!");
 
             this.players[this.steps % this.players.Count].turn = true;
         }
 
         public void Step()
         {
-            this.players[this.steps % this.players.Count].turn = true;
-
             foreach (entity.Entity entity in entities)
             {
                 entity.Step();
             }
             this.steps++;
-
-            foreach (entity.Player player in this.players)
+            List<ulong> channels = new List<ulong> { };
+            List<UserInfo> infoList = new List<UserInfo> { };
+            foreach (Player player in this.players)
             {
-                Program.ShowRenderToUser(player.Info, this.board.GetMap());
+                if (!channels.Contains(player.Info.ChannelId))
+                {
+                    infoList.Add(player.Info);
+                    channels.Add(player.Info.ChannelId);
+                }
                 player.turn = false;
             }
+            foreach(UserInfo info in infoList) { 
+                Program.ShowRenderToUser(info, this.GetMap());
+            }
+            this.players[this.steps % this.players.Count].turn = true;
         }
 
         public void handleCommand(string[] args, UserInfo sender)
@@ -65,7 +74,7 @@ namespace Discord_Hex_Bot.game
             {
                 if (player1.Info.UserId.Equals(sender.UserId))
                 {
-                    Console.WriteLine("poggy");
+                    Console.WriteLine(player.pos.X.ToString() + " " + player.pos.Y.ToString());
                     io.HandleInput.handleInput(player.Info, args);
                 }
             }
@@ -73,7 +82,8 @@ namespace Discord_Hex_Bot.game
 
         public void Spawn(entity.Entity entity)
         {
-            this.entities.Add(entity);
+            int index = entity.pos.X * 10 + entity.pos.Y;
+            this.entities[index] = entity;
         }
 
         public void BroadcastToAll(String message)
@@ -115,5 +125,22 @@ namespace Discord_Hex_Bot.game
             return new entity.Player(this, new math.Position(-1, -1), info);
         }
 
+        public string[] GetMap()
+        {
+            StringBuilder charBuf = new StringBuilder();
+            foreach (Entity entity in this.entities)
+            {
+                charBuf.Append(entity.glyph);
+            }
+            string all = charBuf.ToString();
+            string[] strs = new string[Settings.MAP_HEIGHT];
+            for (int i = 0; i < Settings.MAP_HEIGHT; i++)
+            {
+                strs[i] = all.Substring(Settings.MAP_WIDTH * i, Settings.MAP_WIDTH);
+            }
+            return strs;
+        }
+
     }
+
 }

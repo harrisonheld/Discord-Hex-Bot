@@ -8,7 +8,7 @@
 
         public const string CSV_DELIMITER = ",";
 
-        public const int MAX_PLAYERS = 2; // how many players are needed to play
+        public const int MAX_PLAYERS = 1; // how many players are needed to play
 
         public static char[] GROUND_GLYPHS = new char[5] {',', '.', '-', '"', '\''};
         public static char[] PLAYER_GLYPHS = new char[4] { 'a', 'b', 'c', 'd' };
