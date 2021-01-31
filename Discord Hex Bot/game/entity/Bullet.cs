@@ -17,25 +17,23 @@
         public math.Direction direction;
         public override void Step()
         {
-            if(!this.game.IsClear(this.pos))
-            {
-                if(this.game.GetEntity(this.pos) is Player)
-                this.Remove();
-                this.game.GetEntity(this.pos).Remove();
-            }
-            this.Move(direction);
-            this.Step(false);
-            }
+            this.Step(3);
+        }
 
-        public void Step(bool again)
+        public void Step(int count)
         {
-            if (!this.game.IsClear(this.pos))
+            for (int i = 0; i < count; i++)
             {
-                if (this.game.GetEntity(this.pos) is Player)
+                if (!this.game.IsClear(this.pos.offset(this.direction)))
+                { 
+                    if(this.game.GetEntity(this.pos.offset(this.direction)) is Player)
+                    {
+                        this.game.GetEntity(this.pos.offset(this.direction)).Remove();
+                    }
                     this.Remove();
-                this.game.GetEntity(this.pos).Remove();
+                }
+                this.Move(direction);
             }
-            this.Move(direction);
         }
     }
 }

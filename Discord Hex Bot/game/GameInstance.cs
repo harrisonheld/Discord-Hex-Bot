@@ -68,10 +68,10 @@ namespace Discord_Hex_Bot.game
                     channels.Add(player.Info.ChannelId);
                 }
                 player.turn = false;
-                player.Info.ShootingThisTurn = false;
             }
 
             RenderMapToAll();
+            player.Info.ShootingThisTurn = false;
 
             this.players[this.steps % this.players.Count].turn = true;
         }
@@ -173,7 +173,7 @@ namespace Discord_Hex_Bot.game
             {
                 return new Rock(this, position);
             }
-            return this.entities[position.getValue()];
+                return this.entities[position.getValue()];
         }
 
         public bool IsClear(Position position)

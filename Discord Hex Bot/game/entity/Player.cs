@@ -34,6 +34,11 @@ namespace Discord_Hex_Bot.game.entity
             }
         }
 
+        public override bool Immovable()
+        {
+            return true;
+        }
+
         public int CompareTo(object obj)
         {
             if (obj == null) return 1;
