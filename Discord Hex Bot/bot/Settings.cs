@@ -15,7 +15,7 @@ namespace Discord_Hex_Bot
         public const int PLAYER_COUNT = 2; // how many players are needed to play
 
         public static char[] GROUND_GLYPHS = new char[] { '.' };
-        public static char[] ROCK_GLYPHS = new char[] { 'O' };
+        public static char[] ROCK_GLYPHS = new char[] { '@' };
 
         // isaiah and harrisons account ids, in that order
         public static ulong[] CREATOR_IDS = new ulong[] { 328227485013639168, 741448086701867060 };
