@@ -68,6 +68,7 @@ namespace Discord_Hex_Bot.game
                     channels.Add(player.Info.ChannelId);
                 }
                 player.turn = false;
+                player.Info.ShootingThisTurn = false;
             }
 
             RenderMapToAll();
