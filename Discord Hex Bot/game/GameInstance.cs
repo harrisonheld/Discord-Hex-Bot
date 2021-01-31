@@ -9,7 +9,7 @@ namespace Discord_Hex_Bot.game
 
         public List<entity.Entity> entities = new List<entity.Entity> { };
         public List<entity.Player> players = new List<entity.Player> { };
-        private Random random;
+        public Random random;
 
         public render.Board board;
 
@@ -21,6 +21,7 @@ namespace Discord_Hex_Bot.game
             }
             this.board = new render.Board(this);
             this.players = entities;
+            this.random = new Random();
             INSTANCE = this;
             this.BroadcastToAll("pingaz");
         }
@@ -76,7 +77,22 @@ namespace Discord_Hex_Bot.game
 
         internal void End(entity.Player leaver)
         {
-            this.BroadcastToAll(leaver.Info.UserId.ToString());
+            string name = Program.UserIdToUsername(leaver.Info.UserId);
+            this.BroadcastToAll(name);
         }
+
+        public entity.Player getPlayerFromInfo(UserInfo info)
+        {
+            foreach (entity.Player player in this.players)
+            {
+                if(player.Info.Equals(info))
+                {
+                    return player;
+                }
+            }
+            return new entity.Player(info);
+            this.BroadcastToAll("No player found!");
+        }
+
     }
 }

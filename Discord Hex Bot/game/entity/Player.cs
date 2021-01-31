@@ -6,6 +6,7 @@ namespace Discord_Hex_Bot.game.entity
     public class Player : MobileEntity
     {
         private readonly UserInfo userInfo;
+        public bool hasGone;
 
         public UserInfo Info
         {
