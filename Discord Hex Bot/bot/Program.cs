@@ -169,5 +169,9 @@ namespace Discord_Hex_Bot
 
             return Task.CompletedTask;
         }
+        public static string UserIdToUsername(ulong userId)
+        {
+            return _client.GetUser(userId).Username;
+        }
     }
 }
