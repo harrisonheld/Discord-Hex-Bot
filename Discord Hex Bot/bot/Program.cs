@@ -94,10 +94,10 @@ namespace Discord_Hex_Bot
                 {
                     // make a message telling them where they joined the lobby from.
                     Lobby lobby = LobbyManager.GetLobbyContainingPlayerId(authorId);
-                    Player p = lobby.GetPlayerById(authorId);
+                    UserInfo joinedFromUserInfo = lobby.GetUserInfoById(authorId);
 
-                    ulong joinedFromGuildId = p.Info.GuildId;
-                    ulong joinedFromChannelId = p.Info.ChannelId;
+                    ulong joinedFromGuildId = joinedFromUserInfo.GuildId;
+                    ulong joinedFromChannelId = joinedFromUserInfo.ChannelId;
 
                     string joinedFromGuildName = _client.GetGuild(joinedFromGuildId).Name;
                     string joinedFromChannelName = (_client.GetChannel(joinedFromChannelId) as IMessageChannel).Name;
