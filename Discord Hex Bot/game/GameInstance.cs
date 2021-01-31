@@ -58,9 +58,13 @@ namespace Discord_Hex_Bot.game
                 }
                 player.turn = false;
             }
-            foreach(UserInfo info in infoList) { 
-                info.setReactMessageID(Program.ShowRenderToUser(info, this.GetMap()));
+            for(int i = 0; i < infoList.Count; i++)
+            {
+                UserInfo editedInfo = infoList[i];
+                editedInfo.ReactMessageId = (Program.ShowRenderToUser(editedInfo, this.GetMap()));
+                infoList[i] = editedInfo;
             }
+
             this.players[this.steps % this.players.Count].turn = true;
         }
 

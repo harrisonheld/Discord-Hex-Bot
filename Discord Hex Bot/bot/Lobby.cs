@@ -48,7 +48,7 @@ namespace Discord_Hex_Bot
             if (instance == null)
                 return;
 
-            instance.End(info);
+            //instance.End(info);
             status = LobbyStatus.Waiting;
         }
 
