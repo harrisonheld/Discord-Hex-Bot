@@ -1,5 +1,4 @@
-﻿using Discord_Hex_Bot.game.render;
-using System.IO;
+﻿using System.IO;
 using System;
 
 namespace Discord_Hex_Bot.game.entity
@@ -22,9 +21,7 @@ namespace Discord_Hex_Bot.game.entity
             this.turn = false;
             this.userInfo = info;
             this.dirty = true;
-            this.layer = RenderLayer.Main;
-            this.board = game.board;
-            this.glyph = Settings.PLAYER_GLYPHS[this.game.random.Next(Settings.PLAYER_GLYPHS.Length)];
+            this.glyph = Program.UserIdToUsername(this.Info.UserId)[0];
 
             // check if this id is already in the accounts list
             string[] lines = File.ReadAllLines(Settings.PLAYERS_PATH);
@@ -58,8 +55,8 @@ namespace Discord_Hex_Bot.game.entity
 
         public void Shoot(math.Direction direction)
         {
-            Bullet bullet = new Bullet(this.board.game, this.pos, this, direction);
-            this.board.game.Spawn(bullet);
+            Bullet bullet = new Bullet(this.game, this.pos, this, direction);
+            this.game.Spawn(bullet);
         }
     }
 }

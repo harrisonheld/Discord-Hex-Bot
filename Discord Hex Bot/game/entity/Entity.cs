@@ -1,6 +1,5 @@
 using System;
 using Discord_Hex_Bot.game.math;
-using Discord_Hex_Bot.game.render;
 
 namespace Discord_Hex_Bot.game.entity
 {
@@ -12,8 +11,6 @@ namespace Discord_Hex_Bot.game.entity
         public Position pos;
         // if this is true, the renderer should refresh this entity
         public bool dirty;
-        public RenderLayer layer;
-        public Board board;
         public char glyph;
         public int id;
         public GameInstance game;
@@ -24,17 +21,13 @@ namespace Discord_Hex_Bot.game.entity
             this.id = game.random.Next();
             this.pos = new Position(-1, -1);
             this.dirty = false;
-            this.board = game.board;
-            this.layer = RenderLayer.Background;
             this.glyph = Settings.GROUND_GLYPHS[game.random.Next(0, Settings.GROUND_GLYPHS.Length)];
             this.game = game;
         }
-        private Entity(Position _position, RenderLayer _renderLayer, Board _board)
+        private Entity(Position _position)
         {
             this.pos = _position;
             this.dirty = true;
-            this.layer = _renderLayer;
-            this.board = _board;
         }
 
         public virtual bool Immovable()

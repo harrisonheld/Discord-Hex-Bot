@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Discord_Hex_Bot.game.math;
+using Discord_Hex_Bot.game.render;
 
 namespace Discord_Hex_Bot.game
 {
@@ -14,8 +16,6 @@ namespace Discord_Hex_Bot.game
         public Random random;
         public bool active;
         public int steps;
-
-        public render.Board board;
 
         public GameInstance(List<UserInfo> userInfos)
         {
@@ -36,7 +36,6 @@ namespace Discord_Hex_Bot.game
                 int index = player.pos.X * 10 + player.pos.Y;
                 this.entities[index] = player;
             }
-            this.board = new render.Board(this);    
             this.BroadcastToAll("Lobby full- game has begun!");
 
             this.players[this.steps % this.players.Count].turn = true;
@@ -61,7 +60,7 @@ namespace Discord_Hex_Bot.game
                 player.turn = false;
             }
             foreach(UserInfo info in infoList) { 
-                Program.ShowRenderToUser(info, this.GetMap());
+                info.setReactMessageID(Program.ShowRenderToUser(info, this.GetMap()));
             }
             this.players[this.steps % this.players.Count].turn = true;
         }
@@ -141,6 +140,23 @@ namespace Discord_Hex_Bot.game
             return strs;
         }
 
+        public Entity GetEntity(Position position)
+        {
+            if (position.X < 0 || position.Y < 0)
+            {
+                return new Rock(this, position);
+            }
+            return this.entities[position.value];
+        }
+
+        public bool IsClear(Position position)
+        {
+            if (position.X < 0 || position.Y < 0)
+            {
+                return false;
+            }
+            return !this.GetEntity(position).Immovable();
+        }
     }
 
 }

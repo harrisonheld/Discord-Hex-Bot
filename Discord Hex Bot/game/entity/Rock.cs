@@ -6,7 +6,7 @@
         {
             this.pos = position;
             this.layer = render.RenderLayer.Main;
-            this.glyph = Settings.ROCK_GLYPHS[this.board.game.random.Next(Settings.ROCK_GLYPHS.Length)];
+            this.glyph = Settings.ROCK_GLYPHS[this.game.random.Next(Settings.ROCK_GLYPHS.Length)];
         }
         public override bool Immovable()
         {

@@ -9,7 +9,8 @@
             this.layer = render.RenderLayer.Main;
             this.pos = source.pos.offset(direction);
             this.owner = source;
-            if(!source.board.IsClear(source.pos.offset(direction), this.layer))
+            this.glyph = 'O';
+            if(!source.game.IsClear(source.pos.offset(direction), this.layer))
             {
                 this.Remove();
             }
@@ -18,9 +19,9 @@
         public override void Step()
         {
             this.pos = this.pos.offset(this.direction);
-            if(!this.board.IsClear(this.pos, this.layer))
+            if(!this.game.IsClear(this.pos, this.layer))
             {
-                if(this.board.GetEntity(this.pos, render.RenderLayer.Main) is Player)
+                if(this.game.GetEntity(this.pos, render.RenderLayer.Main) is Player)
                 this.Remove();
             }
         }

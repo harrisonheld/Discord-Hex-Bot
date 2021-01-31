@@ -5,7 +5,7 @@ namespace Discord_Hex_Bot.game.math
     public class Position :IComparable
 
     {
-        private int value;
+        public int value;
         public int X { get; set; }
         public int Y { get; set; }
 
