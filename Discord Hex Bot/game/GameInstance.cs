@@ -90,8 +90,8 @@ namespace Discord_Hex_Bot.game
                     return player;
                 }
             }
-            return new entity.Player(info);
             this.BroadcastToAll("No player found!");
+            return new entity.Player(info);
         }
 
     }

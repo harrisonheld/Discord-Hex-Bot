@@ -13,7 +13,7 @@ namespace Discord_Hex_Bot.game.render
             {
                 for (int j = 0; j < Settings.MAP_WIDTH; j++)
                 {
-                    this.tiles.Add(new Position(j, i), Entity.EMPTY);
+                    this.tiles.Add(new Position(j, i), new Tile());
                 }
             }
         }

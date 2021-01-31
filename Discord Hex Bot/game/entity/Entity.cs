@@ -69,7 +69,7 @@ namespace Discord_Hex_Bot.game.entity
                 this.board.room.entities.Remove(this);
                 if (this is Player)
                 {
-                    this.board.game.End();
+                    this.board.game.End((Player)this);
                 }
             }
         }
