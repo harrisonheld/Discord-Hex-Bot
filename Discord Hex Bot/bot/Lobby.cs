@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 using Discord_Hex_Bot.game;
@@ -11,16 +12,14 @@ namespace Discord_Hex_Bot
     class Lobby
     {
         private List<UserInfo> users = new List<UserInfo>();
-
-        private List<Player> players = new List<Player>();
-        public List<Player> Players 
-
-        {
+        private List<UserInfo> Users
+        { 
             get
             {
-                return players;
+                return users;
             }
         }
+
         private GameInstance instance;
 
         private LobbyStatus status = LobbyStatus.Waiting;
@@ -56,12 +55,10 @@ namespace Discord_Hex_Bot
             int idx = UserIdToIdx(id);
             if (idx >= 0)
             {
-                // WARNING: the following line sucks, if it breaks something, use instance.RemovePlayer(players[idx]) instead
-                // also make a new RemovePlayer(Player p)
-                players[idx].Remove(); // removes player from the game
-                players.RemoveAt(idx);
+                instance.getPlayerFromInfo(users[idx]).Remove();
+                users.RemoveAt(idx);
 
-                if (players.Count < Settings.MAX_PLAYERS)
+                if (users.Count < Settings.MAX_PLAYERS)
                     SuspendGame();
 
                 return true;
@@ -69,21 +66,23 @@ namespace Discord_Hex_Bot
 
             return false;
         }
-        public Player GetPlayerById(ulong userId)
+        public UserInfo GetUserInfoById(ulong userId)
         {
-            foreach (Player p in players)
+            foreach (UserInfo u in users)
             {
-                if (p.Info.UserId == userId)
-                    return p;
+                if (u.UserId == userId)
+                    return u;
             }
 
-            return null;
+            Console.WriteLine("Cannot get user with id {0}. This may cause errors.");
+            // just yolo it and return an empty user info
+            return new UserInfo(0, 0, 0);
         }
         public bool ContainsPlayerWithId(ulong userId)
         {
-            foreach (Player p in players)
+            foreach (UserInfo u in users)
             {
-                if (p.Info.UserId == userId)
+                if (u.UserId == userId)
                     return true;
             }
 
@@ -93,9 +92,9 @@ namespace Discord_Hex_Bot
         {
             int idx = 0;
 
-            foreach (Player p in players)
+            foreach (UserInfo u in users)
             {
-                if (p.Info.UserId == userId)
+                if (u.UserId == userId)
                     return idx;
 
                 idx++;
@@ -109,7 +108,7 @@ namespace Discord_Hex_Bot
         /// </summary>
         /// <param name="args"></param>
         /// <param name="id"></param>
-        public void AcceptCommandFromId(string[] args, ulong id)
+        public void AcceptCommandFromId(string[] args, ulong userId)
         {
             instance.handleInput(args, GetPlayerById(id));
         }
@@ -125,7 +124,7 @@ namespace Discord_Hex_Bot
                         new EmbedFieldBuilder()
                         {
                             Name = "Players: ",
-                            Value = $"[{players.Count} / {Settings.MAX_PLAYERS}]",
+                            Value = $"[{users.Count} / {Settings.MAX_PLAYERS}]",
                             IsInline = true
                         },
                         new EmbedFieldBuilder()
@@ -142,7 +141,7 @@ namespace Discord_Hex_Bot
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append($"Players: {players.Count}\n");
+            sb.Append($"Players: {users.Count}\n");
             sb.Append($"Status: {status}\n");
             return sb.ToString();
         }
