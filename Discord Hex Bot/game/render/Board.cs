@@ -9,24 +9,23 @@ namespace Discord_Hex_Bot.game.render
         public GameInstance game;
         public Board(GameInstance game)
         {
+            this.game = game;
             for (int i = 0; i < Settings.MAP_HEIGHT; i++)
             {
                 for (int j = 0; j < Settings.MAP_WIDTH; j++)
                 {
-                    this.tiles.Add(new Position(j, i), new Tile());
+                    this.entities.Add(new Position(j, i), new Entity(this.game));
                 }
             }
         }
         public static Board INVALID = new Board(GameInstance.INSTANCE);
 
-        public readonly GameInstance room;
 
-        public SortedDictionary<Position, Tile> tiles = new SortedDictionary<Position, Tile> { };
+        public SortedDictionary<Position, Entity> entities = new SortedDictionary<Position, Entity> { };
 
         public Entity GetEntity(Position position, RenderLayer layer)
         {
-            Tile tile = tiles[position];
-            return tile.getEntity(layer);
+            return entities[position];
         }
 
         public bool IsClear(Position position, RenderLayer layer)

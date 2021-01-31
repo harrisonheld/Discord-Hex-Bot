@@ -2,15 +2,18 @@ using System;
 
 namespace Discord_Hex_Bot.game.math
 {
-    public class Position
+    public class Position :IComparable
+
     {
+        private int value;
         public int X { get; set; }
         public int Y { get; set; }
 
-        public Position(int _x, int _y)
+        public Position(int x, int y)
         {
-            X = _x;
-            Y = _y;
+            this.value = (x * 10) + y;
+            this.X = x;
+            this.Y = y;
         }
 
         public bool Equals(Position position)
@@ -69,6 +72,18 @@ namespace Discord_Hex_Bot.game.math
             return new Position(newX, newY);
         }
 
+        public int CompareTo(object obj)
+        {
+            if (obj == null) return 1;
+
+            Position other = obj as Position;
+            if (other != null)
+            {
+                return this.value.CompareTo(other.value);
+            }
+            else
+                throw new ArgumentException("Object is not a Position");
+        }
     }
 
     public enum Direction

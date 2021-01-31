@@ -13,16 +13,19 @@ namespace Discord_Hex_Bot.game
 
         public render.Board board;
 
-        public GameInstance(List<entity.Player> entities)
+        public GameInstance(List<UserInfo> userInfos)
         {
+            this.random = new Random();
+            INSTANCE = this;
+            foreach(UserInfo info in userInfos)
+            {
+                this.players.Add(new entity.Player(this, new math.Position(this.random.Next(Settings.MAP_WIDTH), this.random.Next(Settings.MAP_HEIGHT)), info));
+            }
             foreach (entity.Player player in entities)
             {
                 this.entities.Add(player);
             }
             this.board = new render.Board(this);
-            this.players = entities;
-            this.random = new Random();
-            INSTANCE = this;
             this.BroadcastToAll("pingaz");
         }
         public GameInstance(List<entity.Entity> entities, int seed)
@@ -91,7 +94,7 @@ namespace Discord_Hex_Bot.game
                 }
             }
             this.BroadcastToAll("No player found!");
-            return new entity.Player(info);
+            return new entity.Player(this, new math.Position(-1, -1), info);
         }
 
     }

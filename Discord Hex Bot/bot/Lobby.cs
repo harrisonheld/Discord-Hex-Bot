@@ -10,8 +10,11 @@ namespace Discord_Hex_Bot
 {
     class Lobby
     {
+        private List<UserInfo> users = new List<UserInfo>();
+
         private List<Player> players = new List<Player>();
         public List<Player> Players 
+
         {
             get
             {
@@ -32,7 +35,7 @@ namespace Discord_Hex_Bot
         public void StartGame()
         {
             status = LobbyStatus.InGame;
-            instance = new GameInstance(players);
+            instance = new GameInstance(users);
         }
         public void SuspendGame()
         {
@@ -41,11 +44,12 @@ namespace Discord_Hex_Bot
 
         public void AddPlayer(UserInfo info)
         {
-            Player p = new Player(info);
-            players.Add(p);
+            users.Add(info);
 
-            if (players.Count >= Settings.MAX_PLAYERS)
+            if (users.Count >= Settings.MAX_PLAYERS)
+            {
                 StartGame();
+            }
         }
         public bool RemovePlayerById(ulong id)
         {

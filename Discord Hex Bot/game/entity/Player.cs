@@ -16,7 +16,7 @@ namespace Discord_Hex_Bot.game.entity
             }
         }
 
-        public Player(UserInfo info)
+        public Player(GameInstance game, math.Position position, UserInfo info) : base(game, position)
         {
             this.userInfo = info;
             this.pos = new math.Position(0, 0);
@@ -44,8 +44,8 @@ namespace Discord_Hex_Bot.game.entity
 
         public void Shoot(math.Direction direction)
         {
-            Bullet bullet = new Bullet(this, direction);
-            this.board.room.Spawn(bullet);
+            Bullet bullet = new Bullet(this.board.game, this.pos, this, direction);
+            this.board.game.Spawn(bullet);
         }
     }
 }

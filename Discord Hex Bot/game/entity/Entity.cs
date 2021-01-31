@@ -1,3 +1,4 @@
+using System;
 using Discord_Hex_Bot.game.math;
 using Discord_Hex_Bot.game.render;
 
@@ -6,21 +7,23 @@ namespace Discord_Hex_Bot.game.entity
     public class Entity
     {
 
-        public static Entity EMPTY = new Entity();
+        public static Entity EMPTY = new Entity(GameInstance.INSTANCE);
 
         public Position pos;
         // if this is true, the renderer should refresh this entity
         public bool dirty;
         public RenderLayer layer;
         public Board board;
-        // lol texture
         public char glyph;
+        public int id;
 
-        public Entity()
+
+        public Entity(GameInstance game)
         {
+            this.id = game.random.Next();
             this.pos = new Position(-1, -1);
             this.dirty = false;
-            this.board = Board.INVALID;
+            this.board = game.board;
             this.layer = RenderLayer.Background;
             this.glyph = Settings.GROUND_GLYPHS[0];
         }
@@ -64,15 +67,24 @@ namespace Discord_Hex_Bot.game.entity
 
         public void Remove()
         {
-            if(this.board.room.entities.Contains(this))
+            if(this.board.game.entities.Contains(this))
             {
-                this.board.room.entities.Remove(this);
+                this.board.game.entities.Remove(this);
                 if (this is Player)
                 {
                     this.board.game.End((Player)this);
                 }
             }
         }
+        public int CompareTo(object obj)
+        {
+            if (obj == null) return 1;
 
+            Entity entity = obj as Entity;
+            if (entity != null)
+                return this.id.CompareTo(entity.id);
+            else
+                throw new ArgumentException("Object is not an Entity");
+        }
     }
 }

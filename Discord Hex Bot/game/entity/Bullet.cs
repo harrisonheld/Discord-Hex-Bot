@@ -4,7 +4,7 @@
     {
         public Entity owner;
 
-        public Bullet(Entity source, math.Direction direction)
+        public Bullet(GameInstance game, math.Position position, Entity source, math.Direction direction) : base(game, position)
         {
             this.layer = render.RenderLayer.Main;
             this.pos = source.pos.offset(direction);
