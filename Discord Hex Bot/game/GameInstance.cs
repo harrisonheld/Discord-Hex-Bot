@@ -28,19 +28,25 @@ namespace Discord_Hex_Bot.game
             this.board = new render.Board(this);
             this.BroadcastToAll("pingaz");
         }
-        public GameInstance(List<entity.Entity> entities, int seed)
+
+        public void run()
         {
-            this.entities = entities;
+            foreach(entity.Player player in this.players)
+            {
+
+            }
         }
-        public void HandleInput(string[] args, entity.Player sender)
+
+        public void HandleInput(string[] args, UserInfo sender)
         {
+            entity.Player player = this.getPlayerFromInfo(sender);
             // log the args
             for(int i = 0; i < args.Length; i++)
             {
                 Console.WriteLine($"{i}: {args[i]}");
             }
 
-            if(entities.Contains(sender))
+            if(entities.Contains(player))
             {
 
             }

@@ -20,7 +20,7 @@
             this.pos = this.pos.offset(this.direction);
             if(!this.board.IsClear(this.pos, this.layer))
             {
-                // if(this.board.getEntity(this.pos, render.RenderLayer.Main) instanceof ())
+                if(this.board.GetEntity(this.pos, render.RenderLayer.Main) is Player)
                 this.Remove();
             }
         }

@@ -76,15 +76,5 @@ namespace Discord_Hex_Bot.game.entity
                 }
             }
         }
-        public int CompareTo(object obj)
-        {
-            if (obj == null) return 1;
-
-            Entity entity = obj as Entity;
-            if (entity != null)
-                return this.id.CompareTo(entity.id);
-            else
-                throw new ArgumentException("Object is not an Entity");
-        }
     }
 }

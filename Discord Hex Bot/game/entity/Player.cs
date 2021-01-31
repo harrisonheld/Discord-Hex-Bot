@@ -1,12 +1,13 @@
 ﻿using Discord_Hex_Bot.game.render;
 using System.IO;
+using System;
 
 namespace Discord_Hex_Bot.game.entity
 {
-    public class Player : MobileEntity
+    public class Player : MobileEntity, IComparable
     {
         private readonly UserInfo userInfo;
-        public bool hasGone;
+        public bool turn;
 
         public UserInfo Info
         {
@@ -18,6 +19,7 @@ namespace Discord_Hex_Bot.game.entity
 
         public Player(GameInstance game, math.Position position, UserInfo info) : base(game, position)
         {
+            this.turn = false;
             this.userInfo = info;
             this.pos = new math.Position(0, 0);
             this.dirty = true;
@@ -40,6 +42,17 @@ namespace Discord_Hex_Bot.game.entity
                     break;
                 }
             }
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (obj == null) return 1;
+
+            Player player = obj as Player;
+            if (player != null)
+                return this.Info.UserId.CompareTo(player.Info.UserId);
+            else
+                throw new ArgumentException("Object is not a Player");
         }
 
         public void Shoot(math.Direction direction)

@@ -7,10 +7,17 @@ namespace Discord_Hex_Bot.game.io
 {
     public abstract class HandleInput
     {
-        public static void handleInput(UserInfo userInfo, String[] command)
+        public static void handleInput(UserInfo info, String[] command)
+        {
+            handleInput(GameInstance.INSTANCE.getPlayerFromInfo(info), command);
+        }
+        public static void handleInput(entity.Player player, String[] command)
         {
             GameInstance gameInstance = GameInstance.INSTANCE;
-            entity.Player player = gameInstance.getPlayerFromInfo(userInfo);
+            if (player.turn)
+            {
+                Program.BroadcastToUser(player.Info, "You have already moved!");
+            }
             switch(command[0])
             {
                 case "move":

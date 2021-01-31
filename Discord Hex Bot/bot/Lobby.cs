@@ -111,7 +111,7 @@ namespace Discord_Hex_Bot
         /// <param name="id"></param>
         public void AcceptCommandFromId(string[] args, ulong id)
         {
-            instance.HandleInput(args, GetPlayerById(id));
+            instance.handleInput(args, GetPlayerById(id));
         }
 
         public EmbedBuilder LobbyInfoEmbed()
