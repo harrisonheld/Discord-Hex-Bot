@@ -126,7 +126,7 @@ namespace Discord_Hex_Bot
             instance.handleCommand(args, GetUserInfoById(userId));
         }
 
-        public EmbedBuilder LobbyInfoEmbed()
+        public EmbedBuilder LobbyInfoEmbed(UserInfo whoIsEmbedFor)
         {
             StringBuilder usernamesString = new StringBuilder();
             for(int i = 0; i < users.Count; i++)
@@ -142,10 +142,12 @@ namespace Discord_Hex_Bot
             // append user count
             usernamesString.Append($" **[{users.Count} / {Settings.MAX_PLAYERS}]**");
 
+            string mentionOfWhoEmbedIsFor = Program.UserIdToMention(whoIsEmbedFor.UserId);
+
             return new EmbedBuilder()
             {
                 Title = name,
-                Description = "Here's some stats:",
+                Description = $"You're in this lobby, {mentionOfWhoEmbedIsFor}.",
                 Fields = new List<EmbedFieldBuilder>()
                     {
                         new EmbedFieldBuilder()

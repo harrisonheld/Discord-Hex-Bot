@@ -102,7 +102,7 @@ namespace Discord_Hex_Bot
                     string joinedFromGuildName = _client.GetGuild(joinedFromGuildId).Name;
                     string joinedFromChannelName = (_client.GetChannel(joinedFromChannelId) as IMessageChannel).Name;
 
-                    EmbedBuilder eb = lobby.LobbyInfoEmbed();
+                    EmbedBuilder eb = lobby.LobbyInfoEmbed(info);
 
                     message.Channel.SendMessageAsync($"You are already in a lobby! You joined it from " +
                         $"the channel #{joinedFromChannelName} in the server {joinedFromGuildName}.\n" +
@@ -112,7 +112,7 @@ namespace Discord_Hex_Bot
                 {
                     // assign the player to a new lobby
                     Lobby lobby = LobbyManager.AssignPlayerToLobby(info);
-                    EmbedBuilder eb = lobby.LobbyInfoEmbed();
+                    EmbedBuilder eb = lobby.LobbyInfoEmbed(info);
                     message.Channel.SendMessageAsync("Joined a lobby!", false, eb.Build());
                 }
             }
@@ -187,7 +187,6 @@ namespace Discord_Hex_Bot
         {
             StringBuilder map = new StringBuilder();
             int width = mapLines[0].Length;
-            int height = mapLines.Length;
 
             // opening tick marks
             map.Append("```fix\n"); // use "fix" to make the text orange
@@ -223,6 +222,10 @@ namespace Discord_Hex_Bot
             }
         }
 
+        public static string UserIdToMention(ulong userId)
+        {
+            return _client.GetUser(userId).Mention;
+        }
         public static string UserIdToUsername(ulong userId)
         {
             return _client.GetUser(userId).Username;
