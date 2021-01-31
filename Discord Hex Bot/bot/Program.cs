@@ -206,6 +206,11 @@ namespace Discord_Hex_Bot
             return Task.CompletedTask;
         }
 
+        internal static void EndGame(GameInstance gameInstance)
+        {
+            throw new NotImplementedException();
+        }
+
         public static void BroadcastToUser(UserInfo info, string text)
         {
             ulong channelId = info.ChannelId;
