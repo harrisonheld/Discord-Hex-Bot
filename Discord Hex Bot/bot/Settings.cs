@@ -20,5 +20,7 @@
 
         public static int MAP_WIDTH = 16;
         public static int MAP_HEIGHT = MAP_WIDTH / 16 * 7;
+
+        public static string[] EMOJI_STRINGS = new string[4] { "⬅️", "➡️", "⬆️", "⬇️" };
     }
 }

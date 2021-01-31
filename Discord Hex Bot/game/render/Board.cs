@@ -18,6 +18,7 @@ namespace Discord_Hex_Bot.game.render
                 }
             }
         }
+
         public static Board INVALID = new Board(GameInstance.INSTANCE);
 
 

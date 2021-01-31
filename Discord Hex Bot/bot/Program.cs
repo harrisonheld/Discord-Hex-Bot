@@ -22,6 +22,7 @@ namespace Discord_Hex_Bot
         => MainAsync().GetAwaiter().GetResult();
 
         private static DiscordSocketClient _client;
+
         public static async Task MainAsync()
         {
             prefixLength = PREFIX.Length;
@@ -29,6 +30,7 @@ namespace Discord_Hex_Bot
             _client = new DiscordSocketClient();
             _client.MessageReceived += HandleMessage;
             _client.Log += Log;
+            _client.ReactionAdded += ReactionAdded;
 
             var token = File.ReadAllText(Settings.TOKEN_PATH);
 
@@ -43,6 +45,13 @@ namespace Discord_Hex_Bot
         {
             Console.WriteLine(msg.ToString());
             return Task.CompletedTask;
+        }
+
+        private async static Task ReactionAdded(Cacheable<IUserMessage, UInt64> cachedMessage, ISocketMessageChannel channel, SocketReaction reaction)
+        {
+            var message = await cachedMessage.GetOrDownloadAsync();
+
+            Console.WriteLine((reaction.Emote as Emoji).Name);
         }
 
         private static Task HandleMessage(SocketMessage message)
@@ -137,6 +146,10 @@ namespace Discord_Hex_Bot
                 }
                 LobbyManager.AcceptCommandFromId(args, authorId);
             }
+            else if( command.Equals("reacttest"))
+            {
+                message.Channel.SendMessageAsync("This is a test message. Try reacting to it.");
+            }
 
             return Task.CompletedTask;
         }
@@ -148,7 +161,12 @@ namespace Discord_Hex_Bot
             // the following might break if its a dm channel
             ISocketMessageChannel channel = _client.GetChannel(channelId) as ISocketMessageChannel;
             IMessage message = channel.SendMessageAsync(text).Result;
-            message.AddReactionAsync(Emote.Parse(":confounded:"));
+
+            foreach(string emojiString in Settings.EMOJI_STRINGS)
+            {
+                Emoji emoji = new Emoji(emojiString);
+                message.AddReactionAsync(emoji);
+            }
 
             return Task.CompletedTask;
         }
