@@ -88,7 +88,7 @@ namespace Discord_Hex_Bot
                     return u;
             }
 
-            Console.WriteLine("Cannot get user with id {0}. This may cause errors.");
+            Console.WriteLine($"Could not get user with id {userId}. This may cause errors.");
             // just yolo it and return an empty user info
             return new UserInfo(0, 0, 0);
         }
@@ -122,8 +122,9 @@ namespace Discord_Hex_Bot
         /// </summary>
         /// <param name="args"></param>
         /// <param name="id"></param>
-        public void AcceptCommandFromId(string[] args, ulong userId)
+        public void HandleInput(string[] args, ulong userId)
         {
+            Console.WriteLine("Lobby is doing Handle Input");
             instance.handleCommand(args, GetUserInfoById(userId));
         }
 

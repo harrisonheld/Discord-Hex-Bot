@@ -60,10 +60,10 @@ namespace Discord_Hex_Bot
             return false;
         }
 
-        public static void AcceptCommandFromId(string[] args, ulong id)
+        public static void HandleInput(string[] args, ulong id)
         {
             Lobby lobby = GetLobbyContainingPlayerId(id);
-            lobby.AcceptCommandFromId(args, id);
+            lobby.HandleInput(args, id);
         }
     }
 }

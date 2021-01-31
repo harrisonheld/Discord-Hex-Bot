@@ -156,21 +156,31 @@ namespace Discord_Hex_Bot
                     args[i] = parts[i + 1];
                     Console.WriteLine($"{i}: {args[i]}");
                 }
-                LobbyManager.AcceptCommandFromId(args, authorId);
-            }
-            else if( command.Equals("reacttest"))
-            {
-                message.Channel.SendMessageAsync("This is a test message. Try reacting to it.");
+
+                LobbyManager.HandleInput(args, authorId);
             }
             else if( command.Equals("rendertest"))
             {
-                string[] lines = new string[18];
-                for(int i = 0; i < lines.Length; i++)
+                int height = 18;
+                int width = height * 5;
+
+                string[] lines = new string[height];
+
+                for(int y = 0; y < height; y++)
                 {
-                    lines[i] = "abcabcabcabcabcabcabcabcapoopchugabcabcabcabcabcabcabcabcabcabcabcabcabcabc123456789012345";
+                    StringBuilder lineBuilder = new StringBuilder();
+
+                    for (int x = 0; x < width; x++)
+                    {
+                        int max = Settings.GROUND_GLYPHS.Length;
+                        int glyphIdx = Program.rand.Next(0, max);
+                        lineBuilder.Append(Settings.GROUND_GLYPHS[glyphIdx]);
+                    }
+
+                    lines[y] = lineBuilder.ToString();
                 }
 
-                message.Channel.SendMessageAsync("This is a 90*18 map.");
+                message.Channel.SendMessageAsync($"This is a {width}x{height} map.");
                 ShowRenderToUser(info, lines);
             }
 
