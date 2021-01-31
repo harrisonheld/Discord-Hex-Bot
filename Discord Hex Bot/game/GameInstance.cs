@@ -133,7 +133,7 @@ namespace Discord_Hex_Bot.game
             string message = "The game is over! " + name + " was shot down!";
             this.BroadcastToAll(name);
             this.active = false;
-            Program.EndGame(this);
+            Program.EndGame(this, leaver.Info);
         }
 
         public entity.Player getPlayerFromInfo(UserInfo info)

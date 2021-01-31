@@ -231,7 +231,7 @@ namespace Discord_Hex_Bot
             return Task.CompletedTask;
         }
 
-        internal static void EndGame(GameInstance gameInstance)
+        internal static void EndGame(GameInstance gameInstance, UserInfo info)
         {
             throw new NotImplementedException();
         }
