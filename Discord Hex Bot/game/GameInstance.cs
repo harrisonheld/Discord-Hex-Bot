@@ -106,6 +106,7 @@ namespace Discord_Hex_Bot.game
         internal void End(entity.Player leaver)
         {
             string name = Program.UserIdToUsername(leaver.Info.UserId);
+            string message = "The game is over! " + name + " was shot down!";
             this.BroadcastToAll(name);
             this.active = false;
         }
