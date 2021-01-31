@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Discord_Hex_Bot.game.math;
-using Discord_Hex_Bot.game.render;
 
 namespace Discord_Hex_Bot.game
 {

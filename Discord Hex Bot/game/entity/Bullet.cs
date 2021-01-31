@@ -6,11 +6,10 @@
 
         public Bullet(GameInstance game, math.Position position, Entity source, math.Direction direction) : base(game, position)
         {
-            this.layer = render.RenderLayer.Main;
             this.pos = source.pos.offset(direction);
             this.owner = source;
             this.glyph = 'O';
-            if(!source.game.IsClear(source.pos.offset(direction), this.layer))
+            if(!source.game.IsClear(source.pos.offset(direction)))
             {
                 this.Remove();
             }
@@ -19,9 +18,9 @@
         public override void Step()
         {
             this.pos = this.pos.offset(this.direction);
-            if(!this.game.IsClear(this.pos, this.layer))
+            if(!this.game.IsClear(this.pos))
             {
-                if(this.game.GetEntity(this.pos, render.RenderLayer.Main) is Player)
+                if(this.game.GetEntity(this.pos) is Player)
                 this.Remove();
             }
         }
