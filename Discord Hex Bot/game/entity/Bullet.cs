@@ -25,6 +25,18 @@
                 this.game.GetEntity(this.pos).Remove();
             }
             this.Move(direction);
+            this.Step(false);
+            }
+
+        public void Step(bool again)
+        {
+            if (!this.game.IsClear(this.pos))
+            {
+                if (this.game.GetEntity(this.pos) is Player)
+                    this.Remove();
+                this.game.GetEntity(this.pos).Remove();
+            }
+            this.Move(direction);
         }
     }
 }

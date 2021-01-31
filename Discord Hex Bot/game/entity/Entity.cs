@@ -52,7 +52,7 @@ namespace Discord_Hex_Bot.game.entity
         {
             if(this.game.entities.Contains(this))
             {
-                this.game.entities.Remove(this);
+                this.game.entities[this.pos.getValue()] = new Entity(this.game);
                 if (this is Player)
                 {
                     this.game.End((Player)this);

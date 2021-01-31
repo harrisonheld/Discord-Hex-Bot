@@ -5,21 +5,13 @@ namespace Discord_Hex_Bot.game.entity
 {
     public class Player : MobileEntity, IComparable
     {
-        private readonly UserInfo userInfo;
+        public UserInfo Info;
         public bool turn;
-
-        public UserInfo Info
-        {
-            get
-            {
-                return this.userInfo;
-            }
-        }
 
         public Player(GameInstance game, math.Position position, UserInfo info) : base(game, position)
         {
             this.turn = false;
-            this.userInfo = info;
+            this.Info = info;
             this.dirty = true;
             this.glyph = Program.UserIdToUsername(this.Info.UserId)[0];
 
@@ -35,7 +27,7 @@ namespace Discord_Hex_Bot.game.entity
                 ulong lineUserId = ulong.Parse(fields[0]);
 
                 // if user was found
-                if (lineUserId == this.userInfo.UserId)
+                if (lineUserId == this.Info.UserId)
                 {
                     break;
                 }

@@ -28,7 +28,13 @@ namespace Discord_Hex_Bot.game
             this.steps = 0;
             for (int i = 0; i < Settings.MAP_HEIGHT * Settings.MAP_WIDTH; i++)
             {
-                this.entities.Add(new Entity(this));
+                if(random.NextDouble() < Settings.ROCK_FREQUENCY)
+                {
+                    this.entities.Add(new Rock(this, new Position(i & Settings.MAP_WIDTH, i / Settings.MAP_WIDTH)));
+                } else
+                {
+                    this.entities.Add(new Entity(this));
+                }
             }
             foreach (UserInfo info in infosFromLobby)
             {
@@ -40,6 +46,10 @@ namespace Discord_Hex_Bot.game
                 this.entities[index] = player;
             }
             this.BroadcastToAll("Lobby full - game has begun!");
+            foreach(Player player in players)
+            {
+                player.Info.ReactMessageId = Program.ShowRenderToUser(player.Info, this.GetMap());
+            }
 
             this.players[this.steps % this.players.Count].turn = true;
         }
@@ -123,7 +133,7 @@ namespace Discord_Hex_Bot.game
         {
             foreach (entity.Player player in this.players)
             {
-                if(player.Info.Equals(info))
+                if(player.Info.UserId.Equals(info.UserId))
                 {
                     return player;
                 }

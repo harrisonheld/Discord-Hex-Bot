@@ -56,7 +56,7 @@ namespace Discord_Hex_Bot
         {
             users.Add(info);
 
-            if (users.Count >= Settings.MAX_PLAYERS)
+            if (users.Count >= Settings.PLAYER_COUNT)
             {
                 StartGame();
             }
@@ -68,7 +68,7 @@ namespace Discord_Hex_Bot
             {
                 if(instance != null) // if game has been created, suspend it and remove the player from it
                 {
-                    if (users.Count < Settings.MAX_PLAYERS)
+                    if (users.Count < Settings.PLAYER_COUNT)
                         SuspendGame(users[idx]);
 
                     instance.getPlayerFromInfo(users[idx]).Remove();
@@ -142,7 +142,7 @@ namespace Discord_Hex_Bot
                     usernamesString.Append(", ");
             }
             // append user count
-            usernamesString.Append($" **[{users.Count} / {Settings.MAX_PLAYERS}]**");
+            usernamesString.Append($" **[{users.Count} / {Settings.PLAYER_COUNT}]**");
 
             string mentionOfWhoEmbedIsFor = Program.UserIdToMention(whoIsEmbedFor.UserId);
 

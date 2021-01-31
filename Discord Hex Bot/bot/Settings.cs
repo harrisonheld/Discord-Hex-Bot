@@ -12,13 +12,10 @@ namespace Discord_Hex_Bot
 
         public const string CSV_DELIMITER = ",";
 
-        public const int MAX_PLAYERS = 1; // how many players are needed to play
+        public const int PLAYER_COUNT = 1; // how many players are needed to play
 
-        public static char[] GROUND_GLYPHS = new char[] { ',', '.', '-', '"', '\'' };
-        public static char[] PLAYER_GLYPHS = new char[] { 'a', 'b', 'c', 'd' };
-        public static char[] ENEMY_GLYPHS = new char[] { 'E' };
-        public static char[] ARROW_GLYPHS = new char[] { '/', '-' };
-        public static char[] ROCK_GLYPHS = new char[] { 'o' };
+        public static char[] GROUND_GLYPHS = new char[] { '.' };
+        public static char[] ROCK_GLYPHS = new char[] { '@' };
 
         // isaiah and harrisons account ids, in that order
         public static ulong[] CREATOR_IDS = new ulong[] { 328227485013639168, 741448086701867060 };
@@ -34,5 +31,7 @@ namespace Discord_Hex_Bot
             [new Emoji("⬆️")] = new string[] { "move", "up" },
             [new Emoji("⬇️")] = new string[] { "move", "down" },
         };
+
+        public static double ROCK_FREQUENCY = .015D;
     }
 }

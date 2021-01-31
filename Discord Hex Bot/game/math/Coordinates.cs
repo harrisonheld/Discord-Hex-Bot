@@ -18,6 +18,11 @@ namespace Discord_Hex_Bot.game.math
             this.Y = y;
         }
 
+        public Position FromIndex(int index)
+        {
+            return new Position(index % Settings.MAP_WIDTH, index / Settings.MAP_WIDTH);
+        }
+
         public bool Equals(Position position)
         {
             return position.X == X && position.Y == Y;
