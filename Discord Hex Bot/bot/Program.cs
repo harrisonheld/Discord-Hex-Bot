@@ -150,6 +150,17 @@ namespace Discord_Hex_Bot
             {
                 message.Channel.SendMessageAsync("This is a test message. Try reacting to it.");
             }
+            else if( command.Equals("rendertest"))
+            {
+                string[] lines = new string[18];
+                for(int i = 0; i < lines.Length; i++)
+                {
+                    lines[i] = "abcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabc123456789012345";
+                }
+
+                message.Channel.SendMessageAsync("This is a 90*18 map.");
+                ShowRenderToUser(info, lines);
+            }
 
             return Task.CompletedTask;
         }
@@ -168,6 +179,8 @@ namespace Discord_Hex_Bot
             int width = mapLines[0].Length;
             int height = mapLines.Length;
 
+            // opening tick marks
+            map.Append("```");
             // top bar and corners
             map.Append("╔");
             for (int i = 0; i < width; i++)
@@ -175,9 +188,10 @@ namespace Discord_Hex_Bot
             map.Append("╗");
             map.Append("\n");
 
+            // side bars, and map content
             foreach(string line in mapLines)
             {
-                map.Append($"║{line}║");
+                map.Append($"║{line}║\n");
             }
 
             // bottom bar and corners
@@ -185,6 +199,8 @@ namespace Discord_Hex_Bot
             for (int i = 0; i < width; i++)
                 map.Append("═");
             map.Append("╝");
+            // closing tick marks
+            map.Append("```");
 
             // send the map
             ulong channelId = info.ChannelId;
