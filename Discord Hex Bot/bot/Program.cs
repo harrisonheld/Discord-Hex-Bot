@@ -195,7 +195,9 @@ namespace Discord_Hex_Bot
             ISocketMessageChannel channel = _client.GetChannel(channelId) as ISocketMessageChannel;
             IMessage message = channel.SendMessageAsync(text).Result;
         }
-        public static void ShowRenderToUser(UserInfo info, string[] mapLines)
+
+        // returns the id of the message
+        public static ulong ShowRenderToUser(UserInfo info, string[] mapLines)
         {
             StringBuilder map = new StringBuilder();
             int width = mapLines[0].Length;
@@ -232,6 +234,8 @@ namespace Discord_Hex_Bot
                 Emoji emoji = new Emoji(emojiString);
                 message.AddReactionAsync(emoji);
             }
+
+            return message.Id;
         }
 
         // helper functions
