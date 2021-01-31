@@ -14,6 +14,9 @@ namespace Discord_Hex_Bot
 {
     static class Program
     {
+        // invite link
+        // https://discord.com/oauth2/authorize?client_id=804922580095729664&permissions=67226688&scope=bot
+
         // the prefix used to do commands
         private const string PREFIX = "hex.";
         private static int prefixLength;
@@ -234,7 +237,9 @@ namespace Discord_Hex_Bot
 
         internal static void EndGame(GameInstance gameInstance, UserInfo info)
         {
-            throw new NotImplementedException();
+            ISocketMessageChannel channel = UserInfoToChannel(info);
+            channel.SendMessageAsync("The game has ended.");
+            LobbyManager.RemovePlayerById(info.UserId);
         }
 
         public static void BroadcastToUser(UserInfo info, string text)
@@ -274,8 +279,7 @@ namespace Discord_Hex_Bot
             map.Append("```");
 
             // send the map
-            ulong channelId = info.ChannelId;
-            ISocketMessageChannel channel = _client.GetChannel(channelId) as ISocketMessageChannel; // might break if dm channel, idk havent tried it
+            ISocketMessageChannel channel = UserInfoToChannel(info);
             IMessage message = channel.SendMessageAsync(map.ToString()).Result;
 
             // attach emojis
@@ -295,6 +299,11 @@ namespace Discord_Hex_Bot
         public static string UserIdToUsername(ulong userId)
         {
             return _client.GetUser(userId).Username;
+        }
+        public static ISocketMessageChannel UserInfoToChannel(UserInfo info)
+        {
+            ulong channelId = info.ChannelId;
+            return _client.GetChannel(channelId) as ISocketMessageChannel; // might break if the channel is in a dm, idk
         }
     }
 }
