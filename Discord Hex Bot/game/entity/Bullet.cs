@@ -6,7 +6,6 @@
 
         public Bullet(GameInstance game, math.Position position, Entity source, math.Direction direction) : base(game, position)
         {
-            this.pos = source.pos.offset(direction);
             this.owner = source;
             this.glyph = 'O';
             this.direction = direction;
