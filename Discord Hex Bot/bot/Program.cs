@@ -39,6 +39,16 @@ namespace Discord_Hex_Bot
             await _client.LoginAsync(TokenType.Bot, token);
             await _client.StartAsync();
 
+            while(true)
+            {
+                string input = Console.ReadLine();
+                if(input == "ReactMessageId test")
+                {
+                    ulong reactMessageId = LobbyManager.lobbies[0].GetUserInfoById(741448086701867060).ReactMessageId;
+                    Console.WriteLine(reactMessageId);
+                }
+            }
+
             // Block this task until the program is closed.
             await Task.Delay(-1);
         }
@@ -49,11 +59,20 @@ namespace Discord_Hex_Bot
             return Task.CompletedTask;
         }
 
+        // whenever an emoji is added to a message
         private async static Task ReactionAdded(Cacheable<IUserMessage, UInt64> cachedMessage, ISocketMessageChannel channel, SocketReaction reaction)
         {
-            var message = await cachedMessage.GetOrDownloadAsync();
+            IUserMessage message = await cachedMessage.GetOrDownloadAsync();
+            ulong reactedId = message.Id; // id of the message that the reaction was left on
+            ulong reactorId = message.Author.Id; // id of the user who reactd to the message
 
-            Console.WriteLine((reaction.Emote as Emoji).Name);
+            // id of the most recent map message that was sent to reactor.
+            ulong reactorMapMessageId = LobbyManager.GetLobbyContainingPlayerId(reactorId).GetUserInfoById(reactorId).ReactMessageId;
+
+            if (reactedId != reactorMapMessageId) // this is not the message we care about
+                return;
+
+            Console.WriteLine("The right thingy was reacted to.");
         }
 
         private static Task HandleMessage(SocketMessage message)
