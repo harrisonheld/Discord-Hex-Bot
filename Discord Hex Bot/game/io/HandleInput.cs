@@ -25,15 +25,19 @@ namespace Discord_Hex_Bot.game.io
                     {
                         case "up":
                             player.Move(Direction.North);
+                            player.turn = true;
                             break;
                         case "down":
                             player.Move(Direction.South);
+                            player.turn = true;
                             break;
                         case "left":
                             player.Move(Direction.West);
+                            player.turn = true;
                             break;
                         case "right":
                             player.Move(Direction.East);
+                            player.turn = true;
                             break;
                         default:
                             Program.BroadcastToUser(player.Info, "Invalid Command");
@@ -45,15 +49,22 @@ namespace Discord_Hex_Bot.game.io
                     {
                         case "up":
                             player.Shoot(Direction.North);
+                            player.turn = true;
                             break;
                         case "down":
                             player.Shoot(Direction.South);
+                            player.turn = true;
                             break;
                         case "left":
                             player.Shoot(Direction.West);
+                            player.turn = true;
                             break;
                         case "right":
                             player.Shoot(Direction.East);
+                            player.turn = true;
+                            break;
+                        default:
+                            Program.BroadcastToUser(player.Info, "Invalid Command");
                             break;
                     }
                     break;
