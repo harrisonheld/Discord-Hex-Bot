@@ -18,8 +18,8 @@
         // isaiah and harrisons account ids, in that order
         public static ulong[] CREATOR_IDS = new ulong[2] { 328227485013639168, 741448086701867060 };
 
-        public static int MAP_WIDTH = 16;
-        public static int MAP_HEIGHT = MAP_WIDTH / 16 * 7;
+        public static int MAP_WIDTH = 18 * 5;
+        public static int MAP_HEIGHT = 18;
 
         public static string[] EMOJI_STRINGS = new string[4] { "⬅️", "➡️", "⬆️", "⬇️" };
     }
