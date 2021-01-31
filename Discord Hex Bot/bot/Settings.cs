@@ -15,7 +15,7 @@ namespace Discord_Hex_Bot
         public const int PLAYER_COUNT = 1; // how many players are needed to play
 
         public static char[] GROUND_GLYPHS = new char[] { '.' };
-        public static char[] ROCK_GLYPHS = new char[] { '@' };
+        public static char[] ROCK_GLYPHS = new char[] { 'O' };
 
         // isaiah and harrisons account ids, in that order
         public static ulong[] CREATOR_IDS = new ulong[] { 328227485013639168, 741448086701867060 };
@@ -23,15 +23,26 @@ namespace Discord_Hex_Bot
         public static int MAP_HEIGHT = 18;
         public static int MAP_WIDTH = MAP_HEIGHT * 5;
 
-        public static Dictionary<Emoji, string[]> EMOJI_ARGS_DICT = new Dictionary<Emoji, string[]>()
+        public static Dictionary<Emoji, EmojiWord> EMOJI_ARGS_DICT = new Dictionary<Emoji, EmojiWord>()
         {
-            // "⬅️", "➡️", "⬆️", "⬇️"
-            [new Emoji("⬅️")] = new string[] { "move", "left" },
-            [new Emoji("➡️")] = new string[] { "move", "right" },
-            [new Emoji("⬆️")] = new string[] { "move", "up" },
-            [new Emoji("⬇️")] = new string[] { "move", "down" },
+            [new Emoji("🏹")] = EmojiWord.Bow,
+
+            [new Emoji("⬅️")] = EmojiWord.Left,
+            [new Emoji("➡️")] = EmojiWord.Right,
+            [new Emoji("⬆️")] = EmojiWord.Up,
+            [new Emoji("⬇️")] = EmojiWord.Down,
         };
 
         public static double ROCK_FREQUENCY = .015D;
+    }
+
+    public enum EmojiWord
+    {
+        Bow, 
+
+        Left,
+        Right,
+        Up,
+        Down
     }
 }

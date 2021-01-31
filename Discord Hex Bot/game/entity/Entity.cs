@@ -35,7 +35,7 @@ namespace Discord_Hex_Bot.game.entity
             return false;
         }
 
-        public virtual bool Move(Direction direction)
+        public virtual bool Move(EmojiWord direction)
         {
             this.game.entities[this.pos.getValue()] = new Entity(this.game);
             this.pos = this.pos.offset(direction);

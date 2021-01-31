@@ -46,10 +46,7 @@ namespace Discord_Hex_Bot.game
                 this.entities[index] = player;
             }
             this.BroadcastToAll("Lobby full - game has begun!");
-            foreach(Player player in players)
-            {
-                player.Info.ReactMessageId = Program.ShowRenderToUser(player.Info, this.GetMap());
-            }
+            RenderMapToAll();
 
             this.players[this.steps % this.players.Count].turn = true;
         }
@@ -72,13 +69,22 @@ namespace Discord_Hex_Bot.game
                 }
                 player.turn = false;
             }
-            for (int i = 0; i < infosFromLobby.Count; i++) {
+
+            RenderMapToAll();
+
+            this.players[this.steps % this.players.Count].turn = true;
+        }
+
+        public void RenderMapToAll()
+        {
+            // for each player
+            for (int i = 0; i < infosFromLobby.Count; i++)
+            {
                 UserInfo editedInfo = infosFromLobby[i];
+                // render the map and assign MessageReactIds
                 editedInfo.ReactMessageId = (Program.ShowRenderToUser(infosFromLobby[i], this.GetMap()));
                 infosFromLobby[i] = editedInfo;
             }
-
-            this.players[this.steps % this.players.Count].turn = true;
         }
 
         public void handleCommand(string[] args, UserInfo sender)

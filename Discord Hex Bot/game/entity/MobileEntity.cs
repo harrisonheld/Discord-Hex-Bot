@@ -9,7 +9,7 @@ namespace Discord_Hex_Bot.game.entity
             this.pos = position;
         }
      
-        public override bool Move(Direction direction)
+        public override bool Move(EmojiWord direction)
         {
             if (this.game.IsClear(this.pos.offset(direction)))
             {

@@ -12,6 +12,8 @@ namespace Discord_Hex_Bot
 
         public ulong ReactMessageId { get; set; }
 
+        public bool ShootingThisTurn { get; set; }
+
         public UserInfo(ulong _userId, ulong _channelId, ulong _guildId)
         {
             UserId = _userId;
@@ -19,6 +21,8 @@ namespace Discord_Hex_Bot
             GuildId = _guildId;
 
             ReactMessageId = 0;
+
+            ShootingThisTurn = false;
         }
     }
 }

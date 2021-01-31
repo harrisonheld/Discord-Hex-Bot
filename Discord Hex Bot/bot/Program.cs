@@ -68,8 +68,34 @@ namespace Discord_Hex_Bot
                 return Task.CompletedTask;
 
             // THE FOLLOWING CODE WILL EXECUTE WHEN THE PLAYER RESPONDS TO THEIR APPROPRIATE MAP MESSAGE
+
             Emoji emoji = reaction.Emote as Emoji;
-            string[] args = Settings.EMOJI_ARGS_DICT[emoji];
+            EmojiWord emojiWord = Settings.EMOJI_ARGS_DICT[emoji];
+
+            string dirArg = ""; // what direction user picks
+            switch(emojiWord)
+            {
+                case EmojiWord.Right:
+                    dirArg = "right";
+                    break;
+                case EmojiWord.Left:
+                    dirArg = "left";
+                    break;
+                case EmojiWord.Up:
+                    dirArg = "up";
+                    break;
+                case EmojiWord.Down:
+                    dirArg = "down";
+                    break;
+
+                case EmojiWord.Bow:
+                    info.ShootingThisTurn = true;
+                    break;
+            }
+
+            string actionArg = info.ShootingThisTurn ? "shoot" : "move";
+            string[] args = new string[] { actionArg, dirArg };
+
             LobbyManager.HandleInput(args, reactorId);
 
             return Task.CompletedTask;
